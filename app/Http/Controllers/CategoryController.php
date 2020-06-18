@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 
+use Auth;
+use Illuminate\Support\Facades\Gate;
+
 class CategoryController extends Controller
 {
     /**
@@ -24,7 +27,16 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        $rows = Category::all();
+        // $rows = Category::all(); /* all without Gate */
+        // /* =Show data with Gate====== */
+        // $rows = array();
+        // foreach (Category::all() as $key => $value) {
+        //     if (Gate::allows('MainGate', $value)) {
+        //         \array_push($rows,$value);
+        //     }
+        // }
+        // /* ========================== */
+        $rows = Category::where('created_by',Auth::user()->id)->get();
         return view('pages.category.index',compact('rows'));
     }
 
@@ -51,6 +63,8 @@ class CategoryController extends Controller
         $data->name = $request->name;
         $data->description = $request->description;
         $data->save();
+        session()->flash('message','Data successfully added');
+        session()->flash('alert-class','alert-success');
         return redirect('/'.$this->page);
     }
 
@@ -62,7 +76,14 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        if (Gate::allows('MainGate', $category)) {
+            return response()->json($category);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'access denied'
+            ]);
+        }
     }
 
     /**
@@ -73,8 +94,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $row=$category;
-        return view('pages.category.edit',compact('row'));
+        if (Gate::allows('MainGate', $category)) {
+            $row=$category;            
+            return view('pages.category.edit',compact('row'));
+        } else {
+            return redirect('/'.$this->page);
+        }
     }
 
     /**
@@ -87,12 +112,16 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $this->validate($request, $this->validate);
-        $data = Category::find($category->id);
-        if ($data) {
-            $data->name = $request->name;
-            $data->description = $request->description;
-            $data = $data->save() ;
-        } 
+        if (Gate::allows('MainGate', $category)) {
+            $data = Category::find($category->id);
+            if ($data) {
+                $data->name = $request->name;
+                $data->description = $request->description;
+                $data = $data->save();
+                session()->flash('message','Data successfully updated');
+                session()->flash('alert-class','alert-success');
+            } 
+        }
         return redirect('/'.$this->page);
     }
 
@@ -104,7 +133,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        if (Gate::allows('MainGate', $category)) {
+            $category->delete();
+            session()->flash('message','Data successfully deleted');
+            session()->flash('alert-class','alert-success');
+        }
         return redirect('/'.$this->page);
     }
 }

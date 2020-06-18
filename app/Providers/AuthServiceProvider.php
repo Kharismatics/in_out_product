@@ -26,5 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('MainGate', function ($user, $data) {
+            return $user->id === $data->created_by;
+        });
     }
 }

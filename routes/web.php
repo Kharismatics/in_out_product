@@ -26,7 +26,5 @@ Route::resources([
     'products' => 'ProductController',
     'transactions' => 'TransactionController',
 ]);
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/daily_report', 'ReportController@daily')->name('daily_report');
+Route::get('/monthly_report', 'ReportController@monthly')->name('monthly_report');

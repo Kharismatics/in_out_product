@@ -6,6 +6,9 @@
 
         <div class="col-md-12">
             <div class="card">
+                @if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif
                 <div class="card-header">Master Category <div class="float-right"><a href='{{ route('category.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>Add <i class='fas fa-plus'></i></a></div></div>
 
                 <div class="card-body">

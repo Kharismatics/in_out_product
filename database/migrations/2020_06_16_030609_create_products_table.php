@@ -18,9 +18,9 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('unique_code')->unique();
             $table->string('name');
-            $table->integer('base_price');
-            $table->integer('price');            
-            $table->mediumText('description');
+            $table->integer('base_price')->nullable($value = true);
+            $table->integer('price')->nullable($value = true);            
+            $table->mediumText('description')->nullable($value = true);
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by')->nullable($value = true);
             $table->timestamps();
