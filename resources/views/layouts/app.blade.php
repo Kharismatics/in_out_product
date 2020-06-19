@@ -58,13 +58,13 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('/peoples') }}">
-                                    {{ __('Supplier/Customer') }}
+                                    @lang('text.supplier')/@lang('text.customer')
                                 </a>
                                 <a class="dropdown-item" href="{{ url('/category') }}">
-                                    {{ __('Category') }}
+                                    @lang('text.category')
                                 </a>
                                 <a class="dropdown-item" href="{{ url('/products') }}">
-                                    {{ __('Product') }}
+                                    @lang('text.product')
                                 </a>
                             </div>
                         </li>
@@ -75,11 +75,11 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="navbar-brand dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Transaction <span class="caret"></span>
+                                @lang('text.transaction') <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('/transactions') }}">
-                                    {{ __('In/Out') }}
+                                    @lang('text.in')/@lang('text.out')
                                 </a>
                             </div>
                         </li>
@@ -87,14 +87,14 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="navbar-brand dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Report <span class="caret"></span>
+                                @lang('text.report') <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('/users') }}">
-                                    {{ __('Daily Report') }}
+                                <a class="dropdown-item" href="{{ url('/daily_report') }}">
+                                    @lang('text.daily')
                                 </a>
-                                <a class="dropdown-item" href="{{ url('/products') }}">
-                                    {{ __('Monthly Report') }}
+                                <a class="dropdown-item" href="{{ url('/monthly_report') }}">
+                                    @lang('text.monthly')
                                 </a>
                             </div>
                         </li>

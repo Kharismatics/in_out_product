@@ -8,31 +8,31 @@
                 @if(Session::has('message'))
                     <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <div class="card-header">Transactions <div class="float-right"><a href='{{ route('transactions.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>Add <i class='fas fa-plus'></i></a></div></div>
+                <div class="card-header">@lang('text.transaction') <div class="float-right"><a href='{{ route('transactions.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></div>
 
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <th>#</th>
-                                <th>Date</th>
-                                <th>To/From</th>
-                                <th>Product</th>
-                                <th>Base Price</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Discount</th>
+                                <th>@lang('text.date')</th>
+                                <th>@lang('text.to')/@lang('text.from')</th>
+                                <th>@lang('text.product')</th>
+                                <th>@lang('text.base_price')</th>
+                                <th>@lang('text.price')</th>
+                                <th>@lang('text.quantity')</th>
+                                <th>@lang('text.discount')</th>
                                 <th>Cost</th>
                                 <th>Charge</th>
-                                <th>Remark</th>
+                                <th>@lang('text.remark')</th>
                                 <th>Status</th>
-                                <th>In/Out</th>
-                                <th>Action</th>
+                                <th>@lang('text.in')/@lang('text.out')</th>
+                                <th>@lang('text.action')</th>
                             </thead>
                             <tbody>
                                 @if (count($rows) == 0)
                                     <tr>
-                                        <td colspan="14"><center>Data Empty</center></td>
+                                        <td colspan="14"><center>Data @lang('text.empty')</center></td>
                                     </tr>
                                 @endif
                                 @foreach ($rows as $index => $row)

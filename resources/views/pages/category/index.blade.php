@@ -9,21 +9,21 @@
                 @if(Session::has('message'))
                     <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <div class="card-header">Master Category <div class="float-right"><a href='{{ route('category.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>Add <i class='fas fa-plus'></i></a></div></div>
+                <div class="card-header">Master @lang('text.category') <div class="float-right"><a href='{{ route('category.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></div>
 
                 <div class="card-body">
 
                     <table class="table table-striped">
                         <thead>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
+                            <th>@lang('text.name')</th>
+                            <th>@lang('text.description')</th>
+                            <th>@lang('text.action')</th>
                         </thead>
                         <tbody>
                             @if (count($rows) == 0)
                                 <tr>
-                                    <td colspan="4"><center>Data Empty</center></td>
+                                    <td colspan="4"><center>Data @lang('text.empty')</center></td>
                                 </tr>
                             @endif
                             @foreach ($rows as $index => $row)

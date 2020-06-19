@@ -8,25 +8,25 @@
                 @if(Session::has('message'))
                     <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <div class="card-header">Master Products <div class="float-right"><a href='{{ route('products.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>Add <i class='fas fa-plus'></i></a></div></div>
+                <div class="card-header">Master @lang('text.product') <div class="float-right"><a href='{{ route('products.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></div>
 
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <th>#</th>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Base Price</th>
-                                <th>Price</th>
-                                <th>Description</th>
-                                <th>Action</th>
+                                <th>@lang('text.code')</th>
+                                <th>@lang('text.name')</th>
+                                <th>@lang('text.category')</th>
+                                <th>@lang('text.base_price')</th>
+                                <th>@lang('text.price')</th>
+                                <th>@lang('text.description')</th>
+                                <th>@lang('text.action')</th>
                             </thead>
                             <tbody>
                                 @if (count($rows) == 0)
                                     <tr>
-                                        <td colspan="8"><center>Data Empty</center></td>
+                                        <td colspan="8"><center>Data @lang('text.empty')</center></td>
                                     </tr>
                                 @endif
                                 @foreach ($rows as $index => $row)

@@ -8,23 +8,23 @@
                 @if(Session::has('message'))
                     <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <div class="card-header">Master People <div class="float-right"><a href='{{ route('peoples.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>Add <i class='fas fa-plus'></i></a></div></div>
+                <div class="card-header">Master People <div class="float-right"><a href='{{ route('peoples.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></div>
 
                 <div class="card-body">
 
                     <table class="table table-striped">
                         <thead>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>@lang('text.name')</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Action</th>
+                            <th>@lang('text.phone')</th>
+                            <th>@lang('text.address')</th>
+                            <th>@lang('text.action')</th>
                         </thead>
                         <tbody>
                             @if (count($rows) == 0)
                                 <tr>
-                                    <td colspan="6"><center>Data Empty</center></td>
+                                    <td colspan="6"><center>Data @lang('text.empty')</center></td>
                                 </tr>
                             @endif
                             @foreach ($rows as $index => $row)

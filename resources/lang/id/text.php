@@ -1,5 +1,32 @@
 <?php
 
 return [
+    'action' => 'Aksi',
+    'address' => 'Alamat',
+    'add' => 'Tambah',
+    'application' => 'Aplikasi',
+    'base_price' => 'Harga Dasar',
+    'category' => 'Kategori',
+    'code' => 'Kode',
+    'customer' => 'Pelanggan',
+    'daily' => 'Harian',
+    'date' => 'Tanggal',
+    'description' => 'Deskripsi',
+    'discount' => 'Diskon',
+    'empty' => 'Kosong',
+    'from' => 'Dari',
+    'in' => 'Masuk',
+    'name' => 'Nama',
+    'monthly' => 'Bulanan',
+    'out' => 'Keluar',
+    'phone' => 'Telepon',
+    'price' => 'Harga',
+    'product' => 'Produk',
+    'quantity' => 'Kuantiti',
+    'remark' => 'Keterangan',
+    'report' => 'Laporan',
+    'supplier' => 'Pemasok',
+    'to' => 'Kepada',
+    'transaction' => 'Transaksi',
     'welcome' => 'Selamat datang di aplikasi kami'
 ];
