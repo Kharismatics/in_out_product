@@ -77,3 +77,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Instalation
+
+- Open root directory and run command composer install
+- Setting env. file on your root directory ( you can copy .env.example file to env. )
+- If there is no folder public in your root directory ( [just copy this](https://github.com/Kharismatics/in_out_product/tree/master/public) )
