@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    @lang('text.welcome')
+                    
                 </div>
             </div>
         </div>

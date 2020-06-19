@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/lang/{lang}', function ($lang) {
+    auth()->user()->language = $lang;
+    auth()->user()->save();
+    return back();
+})->middleware('auth');
 
 Auth::routes();
 

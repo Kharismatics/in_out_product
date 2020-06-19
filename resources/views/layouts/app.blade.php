@@ -31,9 +31,17 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
                 <div class="col-md-4">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    <div class="row">
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                        <div class="navbar-brand">
+                            <select class="" id="SelectLang">
+                                <option value="en" {{ ( App::getLocale() == 'en') ? 'selected':'' }}>EN</option>
+                                <option value="id" {{ ( App::getLocale() == 'id') ? 'selected':'' }}>ID</option>
+                            </select>
+                        </div>
+                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -144,5 +152,14 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        $('#SelectLang').change(function (e) { 
+            var url = '{{ url('/lang') }}\/'+$(this).val(); // get selected value
+            if (url) { // require a URL
+                window.location = url; // redirect                
+            }
+            return false;                  
+        });
+    </script>
 </body>
 </html>
