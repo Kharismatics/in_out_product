@@ -36,8 +36,8 @@ class TransactionController extends Controller
     }
     public function create()
     {
-        $peoples = People::orderBy('name', 'DESC')->get();
-        $products = Product::orderBy('name', 'DESC')->get();
+        $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
+        $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
         return view('pages.transaction.create',compact('peoples','products'));
     }
     public function store(Request $request)
@@ -76,8 +76,8 @@ class TransactionController extends Controller
     {
         if (Gate::allows('MainGate', $transaction)) {
             $row=$transaction;
-            $peoples = People::orderBy('name', 'DESC')->get();
-            $products = Product::orderBy('name', 'DESC')->get();
+            $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
+            $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
             return view('pages.transaction.edit',compact('row','peoples','products'));
         } else {
             return redirect('/'.$this->page);
