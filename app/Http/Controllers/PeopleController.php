@@ -15,7 +15,7 @@ class PeopleController extends Controller
                     'name' => 'required',
                     // 'email' => 'required',
                     // 'phone' => 'required',
-                    'address' => 'required',
+                    // 'address' => 'required',
                 ];
     
     public function __construct()

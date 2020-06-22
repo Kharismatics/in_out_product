@@ -19,6 +19,7 @@ class CreatePeoplesTable extends Migration
             $table->string('email')->nullable($value = true);
             $table->string('phone')->nullable($value = true);
             $table->mediumText('address')->nullable($value = true);
+            $table->enum('language', ['en', 'id'])->default('en');
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by')->nullable($value = true);
             $table->timestamps();
