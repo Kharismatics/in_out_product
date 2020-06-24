@@ -18,9 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'peoples' => 'PeopleController',
-    'category' => 'CategoryController',
-    'products' => 'ProductController',
-    'transactions' => 'TransactionController',
-]);
+Route::get('/person','PersonController@all');
+Route::get('/person/{id}','PersonController@show');
+Route::post('/person','PersonController@store');
+Route::put('/person/{id}','PersonController@update');
+Route::delete('/person/{id}','PersonController@delete');

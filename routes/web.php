@@ -13,26 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('welcome');
-});
-Route::get('/lang/{lang}', function ($lang) {
-    auth()->user()->language = $lang;
-    auth()->user()->save();
-    return back();
-})->middleware('auth');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resources([
-    'peoples' => 'PeopleController',
-    'category' => 'CategoryController',
-    'products' => 'ProductController',
-    'transactions' => 'TransactionController',
-]);
-Route::get('/daily_report', 'ReportController@daily')->name('daily_report');
-Route::get('/monthly_report', 'ReportController@monthly')->name('monthly_report');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+})->where('any','.*');

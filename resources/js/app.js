@@ -27,20 +27,20 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// import dependecies tambahan
+// import dependecies
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import Axios from 'axios';
 
 Vue.use(VueRouter, VueAxios, Axios);
 
-// import file yang dibuat tadi
+// import file
 import App from './components/App.vue';
 import Create from './components/Create.vue';
 import Read from './components/Read.vue';
 import Update from './components/Update.vue';
 
-// membuat router
+// router
 const routes = [
     {
         name: 'read',
