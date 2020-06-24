@@ -11,14 +11,9 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct()
     {
-        if ($request->has('api_token')) {
-            $this->middleware('auth:api');
-        } else {
-            $this->middleware('auth');
-        }
-        $this->middleware('localization');
+        $this->middleware('auth');
     }
 
     /**
