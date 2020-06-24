@@ -20,12 +20,16 @@ class CategoryController extends Controller
                     'name' => 'required',
                 ];
     
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->middleware('auth');
+        if ($request->has('api_token')) {
+            $this->middleware('auth:api');
+        } else {
+            $this->middleware('auth');
+        }
         $this->middleware('localization');
     }
-    public function index()
+    public function index(Request $request)
     {
         // $rows = Category::all(); /* all without Gate */
         // /* =Show data with Gate====== */
@@ -37,7 +41,11 @@ class CategoryController extends Controller
         // }
         // /* ========================== */
         $rows = Category::where('created_by',Auth::user()->id)->get();
-        return view('pages.category.index',compact('rows'));
+        if ($request->has('api_token')) {
+            return $rows;
+        } else {
+            return view('pages.category.index',compact('rows'));
+        }
     }
 
     /**

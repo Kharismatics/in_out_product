@@ -9,9 +9,13 @@ use DB;
 
 class ReportController extends Controller
 {
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->middleware('auth');
+        if ($request->has('api_token')) {
+            $this->middleware('auth:api');
+        } else {
+            $this->middleware('auth');
+        }
         $this->middleware('localization');
     }
     public function daily()
