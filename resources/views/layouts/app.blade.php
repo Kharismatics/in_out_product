@@ -13,9 +13,20 @@
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    {{-- <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -25,6 +36,9 @@
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 </head>
 <body>
     <div id="app">
@@ -153,6 +167,53 @@
         </main>
     </div>
     <script>
+        $(document).ready(function() {
+            // datatable
+            $('.table tfoot th').each( function () {
+                var title = $(this).text();
+                if (title !=="#" && title !=="@lang('text.action')"){
+                    $(this).html( 
+                    '<input class="text-warning col-lg-12 col-md-12" type="text" placeholder="'+title+'">'
+                    );
+                }
+            } );
+            var $TABLE = $('.table').DataTable( {
+                @if (App::isLocale('id'))
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json"
+                    },
+                @endif
+                // dom: 'Bfrtip',
+                dom:
+                "<'row'<'col-sm-9'B><'col-sm-3 text-left'l>>"+
+				'<t>'+
+				"<'row'<'col-sm-4'i><'col-sm-8'p>>",
+                // buttons: [
+                //     'copy', 
+                //     'csv', 
+                //     'excel', 
+                //     'pdf', 
+                //     'print'
+                // ]
+                buttons: [
+					{ extend: "copy",  text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
+					{ extend: "excel",   text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},
+					{ extend: "pdf",   text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
+					{ extend: "print",   text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
+				]
+            } );         
+            $TABLE.columns().eq(0).each( function ( colIdx ) {
+                $( 'input', 'th:nth-child('+(colIdx+1)+')' ).on( 'keyup change', function() {
+                        $TABLE
+                            .column( colIdx )
+                            .search( this.value )
+                            .draw();
+                });
+            });  
+            // datatable
+
+        } );
+        // Location
         $('#SelectLang').change(function (e) { 
             var url = '{{ url('/lang') }}\/'+$(this).val(); // get selected value
             if (url) { // require a URL
@@ -160,6 +221,7 @@
             }
             return false;                  
         });
+        // Location
     </script>
 </body>
 </html>

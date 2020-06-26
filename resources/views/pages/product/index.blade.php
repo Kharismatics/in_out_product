@@ -21,7 +21,7 @@
                                 <th>@lang('text.base_price')</th>
                                 <th>@lang('text.price')</th>
                                 <th>@lang('text.description')</th>
-                                <th>@lang('text.action')</th>
+                                <th class="text-center" style="width:10%">@lang('text.action')</th>
                             </thead>
                             <tbody>
                                 @if (count($rows) == 0)
@@ -49,6 +49,16 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <th>#</th>
+                                <th>@lang('text.code')</th>
+                                <th>@lang('text.name')</th>
+                                <th>@lang('text.category')</th>
+                                <th>@lang('text.base_price')</th>
+                                <th>@lang('text.price')</th>
+                                <th>@lang('text.description')</th>
+                                <th class="text-center" style="width:10%">@lang('text.action')</th>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

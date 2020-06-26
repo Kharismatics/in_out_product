@@ -27,7 +27,7 @@
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
                                 <th>@lang('text.in')/@lang('text.out')</th>
-                                <th>@lang('text.action')</th>
+                                <th class="text-center" style="width:10%">@lang('text.action')</th>
                             </thead>
                             <tbody>
                                 @if (count($rows) == 0)
@@ -61,6 +61,22 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <th>#</th>
+                                <th>@lang('text.date')</th>
+                                <th>@lang('text.to')/@lang('text.from')</th>
+                                <th>@lang('text.product')</th>
+                                <th>@lang('text.base_price')</th>
+                                <th>@lang('text.price')</th>
+                                <th>@lang('text.quantity')</th>
+                                <th>@lang('text.discount')</th>
+                                <th>Cost</th>
+                                <th>Charge</th>
+                                <th>@lang('text.remark')</th>
+                                <th>Status</th>
+                                <th>@lang('text.in')/@lang('text.out')</th>
+                                <th class="text-center" style="width:10%">@lang('text.action')</th>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
