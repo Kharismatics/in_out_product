@@ -40,7 +40,7 @@
                         </div> 
                         <div class="form-group">
                             <label for="transaction_date">Transaction Date</label>
-                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ $row->transaction_date }}"  autocomplete="transaction_date" autofocus>
+                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ $row->transaction_date }}" placeholder="Format (yyyy-mm-dd) example : 2020-01-30"  autocomplete="transaction_date" autofocus>
 
                                 @error('transaction_date')
                                     <span class="invalid-feedback" role="alert">

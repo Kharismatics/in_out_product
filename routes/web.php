@@ -33,3 +33,4 @@ Route::resources([
 ]);
 Route::get('/daily_report', 'ReportController@daily')->name('daily_report');
 Route::get('/monthly_report', 'ReportController@monthly')->name('monthly_report');
+Route::get('/setting', 'HomeController@index')->name('setting');

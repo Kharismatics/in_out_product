@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'account' => 'Account',
     'action' => 'Action',
     'address' => 'Address',
     'add' => 'Add',
@@ -22,9 +23,11 @@ return [
     'phone' => 'Phone',
     'price' => 'Price',
     'product' => 'Product',
+    'profit' => 'Profit',
     'quantity' => 'Quantity',
     'remark' => 'Remark',
     'report' => 'Report',
+    'sales' => 'Sales',
     'supplier' => 'Supplier',
     'to' => 'To',
     'transaction' => 'Transaction',

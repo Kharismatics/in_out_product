@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'account' => 'Akun',
     'action' => 'Aksi',
     'address' => 'Alamat',
     'add' => 'Tambah',
@@ -22,9 +23,11 @@ return [
     'phone' => 'Telepon',
     'price' => 'Harga',
     'product' => 'Produk',
+    'profit' => 'Keuntungan',
     'quantity' => 'Kuantiti',
     'remark' => 'Keterangan',
     'report' => 'Laporan',
+    'sales' => 'Penjualan',
     'supplier' => 'Pemasok',
     'to' => 'Kepada',
     'transaction' => 'Transaksi',

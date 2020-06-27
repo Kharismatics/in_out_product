@@ -27,7 +27,7 @@
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
                                 <th>@lang('text.in')/@lang('text.out')</th>
-                                <th class="text-center" style="width:10%">@lang('text.action')</th>
+                                <th class="text-center" style="width:200">@lang('text.action')</th>
                             </thead>
                             <tbody>
                                 @if (count($rows) == 0)
@@ -52,10 +52,10 @@
                                         <td>{{$row->transaction_type}}</td>
                                         <td class="text-center form-inline">
                                             <a href='{{ route('transactions.edit', $row->id) }}' class='edit-data btn btn-warning' data-toggle='tooltip' title='Edit'><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('transactions.destroy', $row->id) }}" method="POST">
+                                            <form id="delete-form" action="{{ route('transactions.destroy', $row->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')    
-                                                <button type="submit" class='edit-data btn btn-danger' data-toggle='tooltip' title='delete'><i class='fa fa-trash'></i></button>   
+                                                <a class='delete-data btn btn-danger' data-toggle='tooltip' title='delete'><i class='fa fa-trash'></i></a>   
                                             </form>
                                         </td>
                                     </tr>
@@ -75,7 +75,7 @@
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
                                 <th>@lang('text.in')/@lang('text.out')</th>
-                                <th class="text-center" style="width:10%">@lang('text.action')</th>
+                                <th class="text-center" style="width:200">@lang('text.action')</th>
                             </tfoot>
                         </table>
                     </div>

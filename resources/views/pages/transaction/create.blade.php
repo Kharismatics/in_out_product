@@ -15,7 +15,7 @@
                             <label for="people_id">Select People</label>
                             <select class="form-control @error('people_id') is-invalid @enderror" id="people_id" name="people_id">
                                 @foreach($peoples as $people)
-                                <option value="{{$people->id}}"> {{ $people->name }}</option>
+                                <option value="{{$people->id}}" {{ ( old('people_id') == $people->id) ? 'selected':'' }}> {{ $people->name }}</option>
                                 @endforeach
                             </select>
                                 @error('people_id')
@@ -28,7 +28,7 @@
                             <label for="product_id">Select Product</label>
                             <select class="form-control @error('product_id') is-invalid @enderror" id="product_id" name="product_id">
                                 @foreach($products as $product)
-                                <option value="{{$product->id}}"> {{ $product->name }}</option>
+                                <option value="{{$product->id}}" {{ ( old('product_id') == $product->id) ? 'selected':'' }}> {{ $product->name }}</option>
                                 @endforeach
                             </select>
                                 @error('product_id')
@@ -39,7 +39,7 @@
                         </div> 
                         <div class="form-group">
                             <label for="transaction_date">Transaction Date</label>
-                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}"  autocomplete="transaction_date" autofocus>
+                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}" placeholder="Format (yyyy-mm-dd) example : 2020-01-30"  autocomplete="transaction_date" autofocus>
 
                                 @error('transaction_date')
                                     <span class="invalid-feedback" role="alert">

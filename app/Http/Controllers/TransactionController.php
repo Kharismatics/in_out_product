@@ -16,7 +16,7 @@ class TransactionController extends Controller
                 $validate = [
                     'product_id'=> 'required',
                     'people_id'=> 'required',
-                    'transaction_date'=> 'required',
+                    'transaction_date'=> 'required|date',
                     'base_price'=> 'required',
                     'price'=> 'required',
                     'quantity'=> 'required',
