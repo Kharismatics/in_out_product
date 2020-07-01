@@ -34,4 +34,8 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\People');
     }
+    public function transaction()
+    {
+        return $this->belongsTo('App\Transaction');
+    }
 }

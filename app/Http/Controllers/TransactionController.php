@@ -10,15 +10,14 @@ use App\Product;
 use Auth;
 use Illuminate\Support\Facades\Gate;
 
+use Carbon\Carbon;
+
 class TransactionController extends Controller
 {
     protected   $page = 'transactions',
                 $validate = [
-                    'product_id'=> 'required',
                     'people_id'=> 'required',
                     'transaction_date'=> 'required|date',
-                    'base_price'=> 'required',
-                    'price'=> 'required',
                     'quantity'=> 'required',
                     'transaction_status'=> 'required',
                     'transaction_type'=> 'required',
@@ -35,14 +34,15 @@ class TransactionController extends Controller
     }
     public function index()
     {
-        $rows = Transaction::with('product','people')->where('created_by',Auth::user()->id)->get();
+        $rows = Transaction::with('product','people','transaction')->where('created_by',Auth::user()->id)->get();
         return view('pages.transaction.index',compact('rows'));
     }
     public function create()
     {
         $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
         $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-        return view('pages.transaction.create',compact('peoples','products'));
+        $transactions = Transaction::with('product','people')->where('created_by',Auth::user()->id)->orderBy('transaction_date', 'DESC')->get();
+        return view('pages.transaction.create',compact('peoples','products','transactions'));
     }
     public function store(Request $request)
     {
@@ -50,7 +50,8 @@ class TransactionController extends Controller
         $data = new Transaction;
         $data->product_id = $request->product_id;
         $data->people_id = $request->people_id;
-        $data->transaction_date = $request->transaction_date;
+        $data->transaction_id = $request->transaction_id;
+        $data->transaction_date = Carbon::parse($request->transaction_date)->format('Y-m-d');
         $data->base_price = $request->base_price;
         $data->price = $request->price;
         $data->quantity = $request->quantity;
@@ -95,7 +96,8 @@ class TransactionController extends Controller
             if ($data) {
                 $data->product_id = $request->product_id;
                 $data->people_id = $request->people_id;
-                $data->transaction_date = $request->transaction_date;
+                $data->transaction_id = $request->transaction_id;
+                $data->transaction_date = Carbon::parse($request->transaction_date)->format('Y-m-d');
                 $data->base_price = $request->base_price;
                 $data->price = $request->price;
                 $data->quantity = $request->quantity;

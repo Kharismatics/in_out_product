@@ -15,11 +15,13 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('transaction_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('people_id')->nullable();
             $table->date('transaction_date');
-            $table->integer('base_price');
-            $table->integer('price');
+            $table->string('unique_code')->nullable($value = true);
+            $table->integer('base_price')->nullable($value = true);
+            $table->integer('price')->nullable($value = true);
             $table->integer('quantity');
             $table->integer('discount')->nullable($value = true);
             $table->integer('cost')->nullable($value = true);

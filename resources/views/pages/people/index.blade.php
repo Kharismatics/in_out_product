@@ -22,11 +22,6 @@
                                 <th class="text-center" style="width:10%">@lang('text.action')</th>
                             </thead>
                             <tbody>
-                                @if (count($rows) == 0)
-                                    <tr>
-                                        <td colspan="6"><center>Data @lang('text.empty')</center></td>
-                                    </tr>
-                                @endif
                                 @foreach ($rows as $index => $row)
                                     <tr>
                                         <td>{{ $index +1 }}</td>

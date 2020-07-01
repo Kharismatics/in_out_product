@@ -15,9 +15,11 @@
                         <table class="table table-striped">
                             <thead>
                                 <th>#</th>
+                                <th>@lang('text.type')</th>
                                 <th>@lang('text.date')</th>
                                 <th>@lang('text.to')/@lang('text.from')</th>
                                 <th>@lang('text.product')</th>
+                                <th>@lang('text.transaction')</th>
                                 <th>@lang('text.base_price')</th>
                                 <th>@lang('text.price')</th>
                                 <th>@lang('text.quantity')</th>
@@ -26,21 +28,20 @@
                                 <th>Charge</th>
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
-                                <th>@lang('text.in')/@lang('text.out')</th>
                                 <th class="text-center" style="width:200">@lang('text.action')</th>
                             </thead>
                             <tbody>
-                                @if (count($rows) == 0)
-                                    <tr>
-                                        <td colspan="14"><center>Data @lang('text.empty')</center></td>
-                                    </tr>
-                                @endif
                                 @foreach ($rows as $index => $row)
                                     <tr>
                                         <td>{{ $index +1 }}</td>
+                                        <td>{{($row->transaction_type == 'in') ? __('text.purchasing') : __('text.sales') }}</td>
                                         <td>{{$row->transaction_date}}</td>
                                         <td>{{$row->people->name}}</td>
-                                        <td>{{$row->product->name}}</td>
+                                        {{-- <td>{{$row->product->name}}</td> --}}
+                                        <td>{{ ( $row->product ) ? $row->product->name:'' }}</td>
+                                        <td>{{ ( $row->transaction ) ? $row->transaction->transaction_date:'' }}</td>
+                                        {{-- <td>{{ ( $row->product ) ? $row->product->name: ( $row->transaction ) ? $row->transaction->transaction_date:'' }}</td> --}}
+                                        {{-- <td>{{ ( ( $row->product ) ? $row->product->name : '$row->transaction' ) ? $row->transaction : 'e' }}</td> --}}
                                         <td>{{$row->base_price}}</td>
                                         <td>{{$row->price}}</td>
                                         <td>{{$row->quantity}}</td>
@@ -49,7 +50,6 @@
                                         <td>{{$row->charge}}</td>
                                         <td>{{$row->remark}}</td>
                                         <td>@switch($row->transaction_status) @case(1) Pending @break @case(2) Progress @break @case(3) Complete @break @endswitch</td>
-                                        <td>{{$row->transaction_type}}</td>
                                         <td class="text-center form-inline">
                                             <a href='{{ route('transactions.edit', $row->id) }}' class='edit-data btn btn-warning' data-toggle='tooltip' title='Edit'><i class="fas fa-edit"></i></a>
                                             <form id="delete-form" action="{{ route('transactions.destroy', $row->id) }}" method="POST">
@@ -63,9 +63,11 @@
                             </tbody>
                             <tfoot>
                                 <th>#</th>
+                                <th>@lang('text.type')</th>
                                 <th>@lang('text.date')</th>
                                 <th>@lang('text.to')/@lang('text.from')</th>
                                 <th>@lang('text.product')</th>
+                                <th>@lang('text.transaction')</th>
                                 <th>@lang('text.base_price')</th>
                                 <th>@lang('text.price')</th>
                                 <th>@lang('text.quantity')</th>
@@ -74,7 +76,6 @@
                                 <th>Charge</th>
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
-                                <th>@lang('text.in')/@lang('text.out')</th>
                                 <th class="text-center" style="width:200">@lang('text.action')</th>
                             </tfoot>
                         </table>
@@ -85,5 +86,8 @@
     </div>
 </div>
 <script type="application/javascript"> 
+$(document).ready(function () {
+    var transactions = @json($rows, JSON_PRETTY_PRINT);
+});
 </script>
 @endsection
