@@ -12,7 +12,7 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <thead>
                                 <th>#</th>
                                 <th>@lang('text.code')</th>
@@ -35,7 +35,7 @@
                                         <td>{{$row->description}}</td>
                                         <td class="text-center form-inline">
                                             <a href='{{ route('products.edit', $row->id) }}' class='edit-data btn btn-warning' data-toggle='tooltip' title='Edit'><i class="fas fa-edit"></i></a>
-                                            <form id="delete-form" action="{{ route('products.destroy', $row->id) }}" method="POST">
+                                            <form class="delete-form" action="{{ route('products.destroy', $row->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')    
                                                 <a class='delete-data btn btn-danger' data-toggle='tooltip' title='delete'><i class='fa fa-trash'></i></a>  

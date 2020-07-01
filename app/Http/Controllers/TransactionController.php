@@ -41,7 +41,7 @@ class TransactionController extends Controller
     {
         $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
         $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-        $transactions = Transaction::with('product','people')->where('created_by',Auth::user()->id)->orderBy('transaction_date', 'DESC')->get();
+        $transactions = Transaction::with('product','people')->where('created_by',Auth::user()->id)->where('transaction_type','in')->orderBy('transaction_date', 'DESC')->get();
         return view('pages.transaction.create',compact('peoples','products','transactions'));
     }
     public function store(Request $request)
@@ -83,7 +83,8 @@ class TransactionController extends Controller
             $row=$transaction;
             $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
             $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-            return view('pages.transaction.edit',compact('row','peoples','products'));
+            $transactions = Transaction::where('created_by',Auth::user()->id)->where('transaction_type','in')->orderBy('id', 'DESC')->get();
+            return view('pages.transaction.edit',compact('row','peoples','products','transactions'));
         } else {
             return redirect('/'.$this->page);
         }  

@@ -4,18 +4,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @if(Session::has('message'))
+                <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+            @endif
             <div class="card">
-                @if(Session::has('message'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-                @endif
-                <div class="card-header">@lang('text.transaction') <div class="float-right"><a href='{{ route('transactions.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></div>
-
+                
                 <div class="card-body">
+                    <h4  class="card-title">@lang('text.transaction') <div class="float-right"><a href='{{ route('transactions.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></h4 >
+                    <hr>
+                    <div class="card-text">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <thead>
                                 <th>#</th>
                                 <th>@lang('text.type')</th>
+                                <th>@lang('text.code')</th>
                                 <th>@lang('text.date')</th>
                                 <th>@lang('text.to')/@lang('text.from')</th>
                                 <th>@lang('text.product')</th>
@@ -35,13 +38,11 @@
                                     <tr>
                                         <td>{{ $index +1 }}</td>
                                         <td>{{($row->transaction_type == 'in') ? __('text.purchasing') : __('text.sales') }}</td>
+                                        <td class="{{ ($row->transaction_type == 'in') ? 'text-danger' : 'text-success' }}">{{$row->unique_code}}</td>
                                         <td>{{$row->transaction_date}}</td>
                                         <td>{{$row->people->name}}</td>
-                                        {{-- <td>{{$row->product->name}}</td> --}}
                                         <td>{{ ( $row->product ) ? $row->product->name:'' }}</td>
-                                        <td>{{ ( $row->transaction ) ? $row->transaction->transaction_date:'' }}</td>
-                                        {{-- <td>{{ ( $row->product ) ? $row->product->name: ( $row->transaction ) ? $row->transaction->transaction_date:'' }}</td> --}}
-                                        {{-- <td>{{ ( ( $row->product ) ? $row->product->name : '$row->transaction' ) ? $row->transaction : 'e' }}</td> --}}
+                                        <td>{{ ( $row->transaction ) ? $row->transaction->unique_code:'' }}</td>
                                         <td>{{$row->base_price}}</td>
                                         <td>{{$row->price}}</td>
                                         <td>{{$row->quantity}}</td>
@@ -52,7 +53,7 @@
                                         <td>@switch($row->transaction_status) @case(1) Pending @break @case(2) Progress @break @case(3) Complete @break @endswitch</td>
                                         <td class="text-center form-inline">
                                             <a href='{{ route('transactions.edit', $row->id) }}' class='edit-data btn btn-warning' data-toggle='tooltip' title='Edit'><i class="fas fa-edit"></i></a>
-                                            <form id="delete-form" action="{{ route('transactions.destroy', $row->id) }}" method="POST">
+                                            <form class="delete-form" action="{{ route('transactions.destroy', $row->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')    
                                                 <a class='delete-data btn btn-danger' data-toggle='tooltip' title='delete'><i class='fa fa-trash'></i></a>   
@@ -64,6 +65,7 @@
                             <tfoot>
                                 <th>#</th>
                                 <th>@lang('text.type')</th>
+                                <th>@lang('text.code')</th>
                                 <th>@lang('text.date')</th>
                                 <th>@lang('text.to')/@lang('text.from')</th>
                                 <th>@lang('text.product')</th>
@@ -79,6 +81,7 @@
                                 <th class="text-center" style="width:200">@lang('text.action')</th>
                             </tfoot>
                         </table>
+                    </div>
                     </div>
                 </div>
             </div>

@@ -36,11 +36,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     
 </head>
@@ -176,7 +176,8 @@
                 @endif
                 // dom: 'Bfrtip',
                 dom:
-                "<'row'<'col-sm-9'B><'col-sm-3 text-left'l>>"+
+                // "<'row'<'col-sm-9'B><'col-sm-3 text-left'l>>"+
+                "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6 text-right'B>>" +
 				'<t>'+
 				"<'row'<'col-sm-4'i><'col-sm-8'p>>",
                 // buttons: [
@@ -187,10 +188,10 @@
                 //     'print'
                 // ]
                 buttons: [
-					{ extend: "copy",  text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
-					{ extend: "excel",   text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},
-					{ extend: "pdf",   text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
-					{ extend: "print",   text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
+					{ extend: "copy", exportOptions: { columns: 'th:not(:last-child)' },  text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
+					{ extend: "excel", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},
+					{ extend: "pdf", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
+					{ extend: "print", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
 				]
             } );           
            if($TABLE.columns().eq(0)) {
@@ -225,7 +226,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    document.getElementById('delete-form').submit();
+                    document.getElementsByClassName('delete-form').submit();
                 }
             });
         });

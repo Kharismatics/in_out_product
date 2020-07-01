@@ -10,7 +10,7 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <thead>
                                 <th>#</th>
                                 <th>People</th>

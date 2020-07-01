@@ -30,7 +30,7 @@
                             <select class="form-control @error('product_id') is-invalid @enderror" id="product_id" name="product_id">
                                 <option value=""> -- @lang('text.select_one') (@lang('text.optional')) -- </option>
                                 @foreach($products as $product)
-                                <option value="{{$product->id}}" {{ ( old('product_id') == $product->id) ? 'selected':'' }}> [{{ $product->unique_code }}] {{ $product->name }}</option>
+                                <option value="{{$product->id}}" {{ ( old('product_id') == $product->id) ? 'selected':'' }}> [ {{ $product->unique_code }} ] {{ $product->name }}</option>
                                 @endforeach
                             </select>
                                 @error('product_id')
@@ -44,7 +44,7 @@
                             <select class="form-control @error('transaction_id') is-invalid @enderror" id="transaction_id" name="transaction_id">
                                 <option value=""> -- @lang('text.select_one') (@lang('text.optional')) -- </option>
                                 @foreach($transactions as $transaction)
-                                <option value="{{$transaction->id}}" {{ ( old('transaction_id') == $transaction->id) ? 'selected':'' }}> {{ $transaction->transaction_date }}</option>
+                                <option value="{{$transaction->id}}" {{ ( old('transaction_id') == $transaction->id) ? 'selected':'' }}> {{ $transaction->unique_code }}</option>
                                 @endforeach
                             </select>
                                 @error('transaction_id')
@@ -68,7 +68,7 @@
                         </div>                         
                         <div class="form-group transaction_in transaction_out">
                             <label for="transaction_date">Transaction Date</label>
-                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}" placeholder="Click Me!"  autocomplete="transaction_date" autofocus readonly>
+                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}" placeholder="Click Me!"  autocomplete="transaction_date" autofocus>
 
                                 @error('transaction_date')
                                     <span class="invalid-feedback" role="alert">
@@ -174,7 +174,6 @@
 </div>
 <script>
     $(document).ready(function () {
-        // $('#transaction_date').datepicker();
         $('#transaction_date').datepicker({
             setDate: new Date(),
             autoclose: true,
@@ -198,6 +197,7 @@
         @endif  
 
         $("select[name='product_id']").change(function(){
+            $("input[name='base_price']").val('')
             if ($(this).val()!='') {	
                 var id = $(this).val();
                 var products = @json($products, JSON_PRETTY_PRINT);
@@ -205,31 +205,28 @@
                 $.each(item, function (indexInArray, valueOfElement) { 
                     $("input[name='base_price']").val(valueOfElement.base_price)
                 });
-            }			
+            }		
         });
         $("select[name='transaction_id']").change(function(){
+            $("input[name='base_price']").val('')
+            $("input[name='price']").val('')
             if ($(this).val()!='') {	
                 var id = $(this).val();
                 var transactions = @json($transactions, JSON_PRETTY_PRINT);
                 var item = $.grep(transactions, function(e){ return e.id == id; });
-                console.log(item);
-                
                 $.each(item, function (indexInArray, valueOfElement) { 
                     $("input[name='base_price']").val(valueOfElement.base_price)
                     $("input[name='price']").val(valueOfElement.product.price)
                 });
-            }			
+            }		
         });
     });
-
     $("input[name='transaction_type']").change(function(){
         if ($(this).val()=='in') {	
-            console.log('in');
             $('.transaction_out').addClass('d-none'); 
             $('.transaction_in').removeClass('d-none'); 
         }
         else { 
-            console.log('out');
             $('.transaction_in').addClass('d-none'); 
             $('.transaction_out').removeClass('d-none'); 
         }				
@@ -237,12 +234,6 @@
     $("input[name='product_id']").change(function(){
         if ($(this).val()!='') {	
             var products = @json($products, JSON_PRETTY_PRINT);
-            console.log(products[0]);
-            
-            // console.log('in');
-            // $('.transaction_out').addClass('d-none'); 
-            // $('.transaction_in').removeClass('d-none');
-
         }			
     });
 </script>
