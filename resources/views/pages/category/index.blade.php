@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
 
         <div class="col-md-12">
-            <div class="card">
-                @if(Session::has('message'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-                @endif
-                <div class="card-header">Master @lang('text.category') <div class="float-right"><a href='{{ route('category.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></div>
-
+            @if(Session::has('message'))
+                <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+            @endif
+            <div class="card">                
                 <div class="card-body">
+                    <h5 class="card-title">Master @lang('text.category') <div class="float-right"><a href='{{ route('category.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></h5>
+                    <hr>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>

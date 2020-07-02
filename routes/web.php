@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/mail', function () {
+    Mail::send('welcome', ['data'=>[]], function ($message) {
+        $message->subject('mail by '.auth()->user()->name);
+        $message->to('kharismatics@gmail.com');
+    });
+    if (Mail::failures()) { echo 'Mailer Fail'; } else { echo 'Mailer Success'; }
+})->middleware('auth');
 Route::get('/lang/{lang}', function ($lang) {
     auth()->user()->language = $lang;
     auth()->user()->save();

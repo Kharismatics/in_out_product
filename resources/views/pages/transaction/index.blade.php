@@ -7,12 +7,10 @@
             @if(Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
             @endif
-            <div class="card">
-                
+            <div class="card">                
                 <div class="card-body">
-                    <h4  class="card-title">@lang('text.transaction') <div class="float-right"><a href='{{ route('transactions.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></h4 >
+                    <h5 class="card-title">@lang('text.transaction') <div class="float-right"><a href='{{ route('transactions.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></h5>
                     <hr>
-                    <div class="card-text">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -37,7 +35,7 @@
                                 @foreach ($rows as $index => $row)
                                     <tr>
                                         <td>{{ $index +1 }}</td>
-                                        <td>{{($row->transaction_type == 'in') ? __('text.purchasing') : __('text.sales') }}</td>
+                                        <td>{{($row->transaction_type == 'in') ? __('text.purchase') : __('text.sales') }}</td>
                                         <td class="{{ ($row->transaction_type == 'in') ? 'text-danger' : 'text-success' }}">{{$row->unique_code}}</td>
                                         <td>{{$row->transaction_date}}</td>
                                         <td>{{$row->people->name}}</td>
@@ -81,7 +79,6 @@
                                 <th class="text-center" style="width:200">@lang('text.action')</th>
                             </tfoot>
                         </table>
-                    </div>
                     </div>
                 </div>
             </div>

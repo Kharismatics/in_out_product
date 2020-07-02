@@ -5,19 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-            <div class="card-header">Add Data</div>
-
                 <div class="card-body">
-
+                    <h5 class="card-title">@lang('text.add') Data</h5>
+                    <hr>
                     <form action="{{ route('transactions.store') }}" method="post">
                         @csrf
                         <div class="form-group text-center">
-                            <label for="transaction_type">Transaction Type</label>
+                            <label for="transaction_type">@lang('text.transaction_type')</label>
                             <div class="col-md-12">
                                 @for ($i = 1; $i <= 2; $i++)
                                     @switch($i) @case(1) @php $enum='in'; @endphp @break @case(2) @php $enum='out'; @endphp @break @endswitch
                                     <label class="radio-inline">
-                                    <input type="radio" name="transaction_type" value="{{ $enum }}" {{ ( old('transaction_type') == $enum ? 'checked':'' ) }} /> {{ ( $enum = 'in' == $enum ? __('text.purchasing') : __('text.sales') ) }} </label>
+                                    <input type="radio" name="transaction_type" value="{{ $enum }}" {{ ( old('transaction_type') == $enum ? 'checked':'' ) }} /> {{ ( $enum = 'in' == $enum ? __('text.purchase') : __('text.sales') ) }} </label>
                                 @endfor
                                 <br>
                                 @error('transaction_type')
@@ -26,7 +25,7 @@
                             </div>        
                         </div>
                         <div class="form-group transaction_in">
-                            <label for="product_id">Select Product</label>
+                            <label for="product_id">@lang('text.select') @lang('text.product')</label>
                             <select class="form-control @error('product_id') is-invalid @enderror" id="product_id" name="product_id">
                                 <option value=""> -- @lang('text.select_one') (@lang('text.optional')) -- </option>
                                 @foreach($products as $product)
@@ -40,7 +39,7 @@
                                 @enderror
                         </div> 
                         <div class="form-group transaction_out">
-                            <label for="product_id">Select Transaction Ref</label>
+                            <label for="product_id">@lang('text.select') @lang('text.transaction') Ref</label>
                             <select class="form-control @error('transaction_id') is-invalid @enderror" id="transaction_id" name="transaction_id">
                                 <option value=""> -- @lang('text.select_one') (@lang('text.optional')) -- </option>
                                 @foreach($transactions as $transaction)
@@ -54,7 +53,7 @@
                                 @enderror
                         </div> 
                         <div class="form-group transaction_in transaction_out">
-                            <label for="people_id">Select People</label>
+                            <label for="people_id">@lang('text.select') @lang('text.people')</label>
                             <select class="form-control @error('people_id') is-invalid @enderror" id="people_id" name="people_id">
                                 @foreach($peoples as $people)
                                 <option value="{{$people->id}}" {{ ( old('people_id') == $people->id) ? 'selected':'' }}> {{ $people->name }}</option>
@@ -67,7 +66,7 @@
                                 @enderror
                         </div>                         
                         <div class="form-group transaction_in transaction_out">
-                            <label for="transaction_date">Transaction Date</label>
+                            <label for="transaction_date">@lang('text.transaction_date')</label>
                             <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}" placeholder="Click Me!"  autocomplete="transaction_date" autofocus>
 
                                 @error('transaction_date')
@@ -77,7 +76,7 @@
                                 @enderror
                         </div>                 
                         <div class="form-group transaction_in transaction_out">
-                            <label for="base_price">Base Price</label>
+                            <label for="base_price">@lang('text.base_price')</label>
                             <input id="base_price" type="number" class="form-control @error('base_price') is-invalid @enderror" name="base_price" value="{{ old('base_price') }}"  autocomplete="base_price" autofocus>
 
                                 @error('base_price')
@@ -87,7 +86,7 @@
                                 @enderror
                         </div>
                         <div class="form-group transaction_out">
-                            <label for="price">Price</label>
+                            <label for="price">@lang('text.price')</label>
                             <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"  autocomplete="price" autofocus>
 
                                 @error('price')
@@ -97,7 +96,7 @@
                                 @enderror
                         </div>
                         <div class="form-group transaction_in transaction_out">
-                            <label for="quantity">Quantity</label>
+                            <label for="quantity">@lang('text.quantity')</label>
                             <input id="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') }}"  autocomplete="quantity" autofocus>
 
                                 @error('quantity')
@@ -107,7 +106,7 @@
                                 @enderror
                         </div>
                         <div class="form-group transaction_out">
-                            <label for="discount">Discount</label>
+                            <label for="discount">@lang('text.discount')</label>
                             <input id="discount" type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" value="{{ old('discount') }}"  autocomplete="discount" autofocus>
 
                                 @error('discount')
@@ -117,7 +116,7 @@
                                 @enderror
                         </div>
                         <div class="form-group transaction_out">
-                            <label for="cost">Cost</label>
+                            <label for="cost">@lang('text.cost')</label>
                             <input id="cost" type="number" class="form-control @error('cost') is-invalid @enderror" name="cost" value="{{ old('cost') }}"  autocomplete="cost" autofocus>
 
                                 @error('cost')
@@ -137,7 +136,7 @@
                                 @enderror
                         </div>
                         <div class="form-group transaction_out">
-                            <label for="remark">Remark</label>
+                            <label for="remark">@lang('text.remark')</label>
                             <textarea id="remark" type="text" class="form-control @error('remark') is-invalid @enderror" name="remark" autocomplete="remark" autofocus>{{ old('remark') }}</textarea>
 
                                 @error('remark')
@@ -147,7 +146,7 @@
                                 @enderror
                         </div>
                         <div class="form-group transaction_in transaction_out">
-                            <label for="transaction_status">Transaction Status</label>
+                            <label for="transaction_status">@lang('text.transaction_status')</label>
                             <div class="col-md-6">                               
                                 @for ($i = 1; $i <= 3; $i++)
                                     <label class="radio-inline">
@@ -162,8 +161,8 @@
                             </div>        
                         </div>                        
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Save</button>
-                            <a href="{{ route('transactions.index') }}" class="btn btn-primary">Back</a>
+                            <button type="submit" class="btn btn-success">@lang('text.save')</button>
+                            <a href="{{ route('transactions.index') }}" class="btn btn-primary">@lang('text.back')</a>
                         </div>
                     </form>
 

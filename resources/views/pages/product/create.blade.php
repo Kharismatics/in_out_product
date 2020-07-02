@@ -5,14 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-            <div class="card-header">Add Data</div>
-
                 <div class="card-body">
-
+                    <h5 class="card-title">@lang('text.add') Data</h5>
+                    <hr>
                     <form action="{{ route('products.store') }}" method="post">
                         @csrf 
                         <div class="form-group">
-                            <label for="unique_code">Unique Code</label>
+                            <label for="unique_code">@lang('text.unique_code')</label>
                             <input id="unique_code" type="text" class="form-control @error('unique_code') is-invalid @enderror" name="unique_code" value="{{ old('unique_code') }}"  autocomplete="unique_code" autofocus>
 
                                 @error('unique_code')
@@ -22,7 +21,7 @@
                                 @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">@lang('text.name')</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
 
                                 @error('name')
@@ -32,7 +31,7 @@
                                 @enderror
                         </div>
                         <div class="form-group">
-                            <label for="category_id">Select Category</label>
+                            <label for="category_id">@lang('text.select') @lang('text.category')</label>
                             <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
                                 @foreach($categories as $category)
                                 <option value="{{$category->id}}" {{ ( old('category_id') == $category->id) ? 'selected':'' }}> {{ $category->name }}</option>
@@ -45,7 +44,7 @@
                                 @enderror
                         </div> 
                         <div class="form-group">
-                            <label for="base_price">Base Price</label>
+                            <label for="base_price">@lang('text.base_price')</label>
                             <input id="base_price" type="number" class="form-control @error('base_price') is-invalid @enderror" name="base_price" value="{{ old('base_price') }}"  autocomplete="base_price" autofocus>
 
                                 @error('base_price')
@@ -55,7 +54,7 @@
                                 @enderror
                         </div>
                         <div class="form-group">
-                            <label for="price">Price</label>
+                            <label for="price">@lang('text.price')</label>
                             <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"  autocomplete="price" autofocus>
 
                                 @error('price')
@@ -65,7 +64,7 @@
                                 @enderror
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
+                            <label for="description">@lang('text.description')</label>
                             <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}"  autocomplete="description" autofocus>
 
                                 @error('description')
@@ -75,8 +74,8 @@
                                 @enderror
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Save</button>
-                            <a href="{{ route('products.index') }}" class="btn btn-primary">Back</a>
+                            <button type="submit" class="btn btn-success">@lang('text.save')</button>
+                            <a href="{{ route('products.index') }}" class="btn btn-primary">@lang('text.back')</a>
                         </div>
                     </form>
 

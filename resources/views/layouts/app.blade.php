@@ -93,7 +93,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('/transactions') }}">
-                                    @lang('text.purchasing') & @lang('text.sales')
+                                    @lang('text.purchase') & @lang('text.sales')
                                 </a>
                             </div>
                         </li>
