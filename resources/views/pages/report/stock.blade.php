@@ -5,17 +5,16 @@
     <div class="row justify-content-center">
 
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Daily Report</div>
-
+            <div class="card">                
                 <div class="card-body">
+                    <h5 class="card-title">Daily Report</h5>
+                    <hr>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <th>#</th>
-                                <th>People</th>
                                 <th>Product</th>
-                                <th>Transaction</th>
+                                <th>Stock</th>
                             </thead>
                             <tbody>
                                 @if (count($rows) == 0)
@@ -25,10 +24,9 @@
                                 @endif
                                 @foreach ($rows as $index => $row)
                                     <tr>
-                                        <td>{{ $index +1 }}</td>
-                                        <td>{{$row->people}}</td>
+                                        <td>{{ $index }}</td>
                                         <td>{{$row->product}}</td>
-                                        <td>{{$row->transaction_type}}</td>
+                                        <td>{{$row->stock}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -40,5 +38,14 @@
     </div>
 </div>
 <script type="application/javascript"> 
+var table = $('.table').DataTable({
+    dom: 'Btr',
+    buttons: [
+        { extend: "copy", exportOptions: { columns: 'th:not(:last-child)' },  text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
+        { extend: "excel", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},
+        { extend: "pdf", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
+        { extend: "print", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
+    ],
+})
 </script>
 @endsection

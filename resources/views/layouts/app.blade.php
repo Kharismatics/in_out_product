@@ -102,12 +102,15 @@
                                 @lang('text.report') <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('/daily_report') }}">
-                                    @lang('text.daily')
+                                <a class="dropdown-item" href="{{ url('/sales') }}">
+                                    @lang('text.sales')
                                 </a>
-                                <a class="dropdown-item" href="{{ url('/monthly_report') }}">
-                                    @lang('text.monthly')
+                                <a class="dropdown-item" href="{{ url('/stock') }}">
+                                    @lang('text.stock')
                                 </a>
+                                {{-- <a class="dropdown-item" href="{{ url('/debt_receivable') }}">
+                                    @lang('text.debt') & @lang('text.receivable') 
+                                </a> --}}
                             </div>
                         </li>
                         @endif
@@ -168,25 +171,16 @@
                     );
                 }
             } );
-            var $TABLE = $('.table').DataTable( {
+            var $TABLE = $('.DataTables').DataTable( {
                 @if (App::isLocale('id'))
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json"
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json"
                     },
                 @endif
-                // dom: 'Bfrtip',
                 dom:
-                // "<'row'<'col-sm-9'B><'col-sm-3 text-left'l>>"+
                 "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6 text-right'B>>" +
 				'<t>'+
 				"<'row'<'col-sm-4'i><'col-sm-8'p>>",
-                // buttons: [
-                //     'copy', 
-                //     'csv', 
-                //     'excel', 
-                //     'pdf', 
-                //     'print'
-                // ]
                 buttons: [
 					{ extend: "copy", exportOptions: { columns: 'th:not(:last-child)' },  text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
 					{ extend: "excel", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},

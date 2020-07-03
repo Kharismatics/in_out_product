@@ -28,6 +28,7 @@
                         <div class="form-group transaction_in">
                             <label for="product_id">@lang('text.select') @lang('text.product')</label>
                             <select class="form-control @error('product_id') is-invalid @enderror" id="product_id" name="product_id">
+                                <option value=""> -- @lang('text.select_one') (@lang('text.optional')) -- </option>
                                 @foreach($products as $product)
                                 <option value="{{$product->id}}" {{ $row && ($row->product_id == $product->id) ? 'selected':'' }}> {{ $product->name }}</option>
                                 @endforeach
@@ -67,7 +68,7 @@
                         </div> 
                         <div class="form-group transaction_in transaction_out">
                             <label for="transaction_date">@lang('text.transaction_date')</label>
-                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ $row->transaction_date }}" placeholder="Format (yyyy-mm-dd) example : 2020-01-30"  autocomplete="transaction_date" autofocus>
+                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ $row->transaction_date }}" autocomplete="off" autofocus>
 
                                 @error('transaction_date')
                                     <span class="invalid-feedback" role="alert">
@@ -135,7 +136,7 @@
                                     </span>
                                 @enderror
                         </div>
-                        <div class="form-group transaction_out">
+                        <div class="form-group transaction_in transaction_out">
                             <label for="remark">@lang('text.remark')</label>
                             <textarea id="remark" type="text" class="form-control @error('remark') is-invalid @enderror" name="remark"  autocomplete="remark" autofocus>{{ $row->remark }}</textarea>
 

@@ -67,7 +67,7 @@
                         </div>                         
                         <div class="form-group transaction_in transaction_out">
                             <label for="transaction_date">@lang('text.transaction_date')</label>
-                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}" placeholder="Click Me!"  autocomplete="transaction_date" autofocus>
+                            <input id="transaction_date" type="text" class="form-control @error('transaction_date') is-invalid @enderror" name="transaction_date" value="{{ old('transaction_date') }}" autocomplete="off" autofocus>
 
                                 @error('transaction_date')
                                     <span class="invalid-feedback" role="alert">
@@ -135,7 +135,7 @@
                                     </span>
                                 @enderror
                         </div>
-                        <div class="form-group transaction_out">
+                        <div class="form-group transaction_in transaction_out">
                             <label for="remark">@lang('text.remark')</label>
                             <textarea id="remark" type="text" class="form-control @error('remark') is-invalid @enderror" name="remark" autocomplete="remark" autofocus>{{ old('remark') }}</textarea>
 

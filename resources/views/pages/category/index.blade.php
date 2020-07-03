@@ -13,7 +13,7 @@
                     <h5 class="card-title">Master @lang('text.category') <div class="float-right"><a href='{{ route('category.create') }}' class='edit-data btn btn-success' data-toggle='tooltip' title='Edit'>@lang('text.add') <i class='fas fa-plus'></i></a></div></h5>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table DataTables">
                             <thead>
                                 <th>#</th>
                                 <th>@lang('text.name')</th>

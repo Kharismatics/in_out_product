@@ -38,6 +38,7 @@ Route::resources([
     'products' => 'ProductController',
     'transactions' => 'TransactionController',
 ]);
-Route::get('/daily_report', 'ReportController@daily')->name('daily_report');
-Route::get('/monthly_report', 'ReportController@monthly')->name('monthly_report');
+Route::get('/sales', 'ReportController@sales')->name('sales');
+Route::get('/stock', 'ReportController@stock')->name('stock');
+Route::get('/debt_receivable', 'ReportController@debt_receivable')->name('debt_receivable');
 Route::get('/setting', 'HomeController@index')->name('setting');
