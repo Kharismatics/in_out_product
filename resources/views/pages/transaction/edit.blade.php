@@ -76,7 +76,7 @@
                                     </span>
                                 @enderror
                         </div>                 
-                        <div class="form-group transaction_in transaction_out">
+                        <div class="form-group transaction_in">
                             <label for="base_price">@lang('text.base_price')</label>
                             <input id="base_price" type="number" class="form-control @error('base_price') is-invalid @enderror" name="base_price" value="{{ $row->base_price }}"  autocomplete="base_price" autofocus>
 
@@ -106,7 +106,7 @@
                                     </span>
                                 @enderror
                         </div>
-                        <div class="form-group transaction_out">
+                        {{-- <div class="form-group transaction_out">
                             <label for="discount">@lang('text.discount')</label>
                             <input id="discount" type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" value="{{ $row->discount }}"  autocomplete="discount" autofocus>
 
@@ -135,7 +135,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group transaction_in transaction_out">
                             <label for="remark">@lang('text.remark')</label>
                             <textarea id="remark" type="text" class="form-control @error('remark') is-invalid @enderror" name="remark"  autocomplete="remark" autofocus>{{ $row->remark }}</textarea>
@@ -215,7 +215,6 @@
                 var transactions = @json($transactions, JSON_PRETTY_PRINT);
                 var item = $.grep(transactions, function(e){ return e.id == id; });
                 $.each(item, function (indexInArray, valueOfElement) { 
-                    $("input[name='base_price']").val(valueOfElement.base_price)
                     $("input[name='price']").val(valueOfElement.product.price)
                 });
             }		

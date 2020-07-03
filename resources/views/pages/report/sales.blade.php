@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">                
                 <div class="card-body">
-                    <h5 class="card-title">Sales Report</h5>
+                    <h5 class="card-title">@lang('text.sales')</h5>
                     {{-- <hr> --}}
                     <div class="table-responsive">
                         <table class="table">
@@ -20,11 +20,11 @@
                                 <th>@lang('text.sales')</th>
                             </thead>
                             <tbody>
-                                @if (count($rows) == 0)
+                                {{-- @if (count($rows) == 0)
                                     <tr>
                                         <td colspan="4"><center>Data Empty</center></td>
                                     </tr>
-                                @endif
+                                @endif --}}
                                 @foreach ($rows as $index => $row)
                                     <tr>
                                         <td>{{ $index +1 }}</td>
@@ -38,8 +38,10 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-center" colspan="2"><h5>Total</h5></td>
-                                    <td class="text-center" colspan="2"></td>
+                                    <td><h5>Total</h5></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -55,10 +57,10 @@
 var table = $('.table').DataTable({
     dom: 'Btr',
     buttons: [
-        { extend: "copy", exportOptions: { columns: 'th:not(:last-child)' },  text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
-        { extend: "excel", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},
-        { extend: "pdf", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
-        { extend: "print", exportOptions: { columns: 'th:not(:last-child)' },   text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
+        { extend: "copy", footer:true, text: '<i class="fas fa-copy"></i>', className: 'btn btn-secondary',titleAttr: 'Copy'},
+        { extend: "excel", footer:true, text: '<i class="fas fa-file-excel"></i>', className: 'btn btn-success',titleAttr: 'Export to Excel'},
+        { extend: "pdf", footer:true, text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
+        { extend: "print", footer:true, text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
     ],
     footerCallback: function (row, data, start, end, display) {        
         var api = this.api(),
@@ -88,16 +90,19 @@ var table = $('.table').DataTable({
         balance =  total_sales - total_purchase;
         text_class = (balance > 0) ? 'text-success' : 'text-danger' ;
 
-        $(api.column(3).footer()).html(
-           '<b class="'+text_class+'">'+ balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +'</b>'
+        $(api.column(1).footer()).html(
+        //    '<b class="'+text_class+'">'+ balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +'</b>'
+           '= '+'<b class="'+text_class+'">'+ balance +'</b>'
         );
 
         $(api.column(4).footer()).html(
-            total_purchase.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            // total_purchase.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            total_purchase
         );
 
         $(api.column(5).footer()).html(
-            total_sales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            // total_sales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            total_sales
         );
     }
 });
