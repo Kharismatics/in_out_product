@@ -28,6 +28,7 @@ return [
     'monthly' => 'Monthly',
     'optional' => 'Optional',
     'out' => 'Out',
+    'paid' => 'Paid',
     'people' => 'People',
     'phone' => 'Phone',
     'price' => 'Price',
@@ -58,5 +59,6 @@ return [
     'transaction_type' => 'Transaction Type',
     'type' => 'Type',
     'unique_code' => 'Unique Code',
+    'unpaid' => 'Unpaid',
     'welcome' => 'Welcome to our application',
 ];

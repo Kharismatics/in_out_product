@@ -48,7 +48,7 @@
                                         <td>{{$row->cost}}</td>
                                         <td>{{$row->charge}}</td>
                                         <td>{{$row->remark}}</td>
-                                        <td>@switch($row->transaction_status) @case(1) Pending @break @case(2) Progress @break @case(3) Complete @break @endswitch</td>
+                                        <td>@switch($row->transaction_status) @case(1) Pending @break @case(2) Progress @break @case(3) Complete @break @endswitch<br>@switch($row->paid) @case(0) @lang('text.unpaid') @break @case(1) @lang('text.paid') @break @endswitch</td>
                                         <td class="text-center form-inline">
                                             <a href='{{ route('transactions.edit', $row->id) }}' class='edit-data btn btn-warning' data-toggle='tooltip' title='Edit'><i class="fas fa-edit"></i></a>
                                             <form class="delete-form" action="{{ route('transactions.destroy', $row->id) }}" method="POST">
@@ -89,5 +89,19 @@
 $(document).ready(function () {
     var transactions = @json($rows, JSON_PRETTY_PRINT);
 });
+function AjaxUpdate(params) {     
+    $.ajax({
+        type: "POST",
+        url: "{{ route('transactions.create') }}",
+        data: {
+            tes : 1,
+            _method : 'PUT',
+            _token: '{{ csrf_token() }}',
+        },
+        success: function (response) {
+            console.log(response);     
+        }
+    });
+ }
 </script>
 @endsection

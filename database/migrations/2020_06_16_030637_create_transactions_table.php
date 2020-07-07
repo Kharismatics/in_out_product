@@ -29,6 +29,7 @@ class CreateTransactionsTable extends Migration
             $table->mediumText('remark')->nullable($value = true);
             $table->integer('transaction_status');
             $table->enum('transaction_type', ['in', 'out']);
+            $table->integer('paid')->default(0);
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by')->nullable($value = true);
             $table->timestamps();

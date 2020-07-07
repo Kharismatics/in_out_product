@@ -59,6 +59,21 @@ class ReportController extends Controller
         ->get();
         return view('pages.report.sales',compact('rows','interval','intervals'));
     }
+    public function debt(Request $request)
+    {
+        $rows = DB::table('transactions')
+        ->join('peoples', 'peoples.id', '=', 'transactions.people_id')
+        ->select(
+            DB::raw('peoples.name as people'),
+            DB::raw('if(transactions.transaction_type="in","'.__("text.debt").'","'.__("text.liability").'") as transaction_type'),
+            DB::raw('sum(if(transactions.transaction_type="in",0-(transactions.base_price*transactions.quantity),transactions.price*transactions.quantity)) as total'),
+            )
+        ->where('transactions.created_by', Auth::user()->id)
+        ->where('transactions.paid', 0)
+        ->groupBy('people','transaction_type')
+        ->get();
+        return view('pages.report.debt',compact('rows'));
+    }
     public function stock()
     {
         $rows = DB::table('transactions')

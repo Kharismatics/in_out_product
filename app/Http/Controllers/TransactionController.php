@@ -61,6 +61,7 @@ class TransactionController extends Controller
         $data->remark = $request->remark;
         $data->transaction_status = $request->transaction_status;
         $data->transaction_type = $request->transaction_type;
+        $data->paid = $request->filled('paid');
         $data->save();
         session()->flash('message', __('text.successfully_added'));
         session()->flash('alert-class','alert-success');
@@ -108,6 +109,7 @@ class TransactionController extends Controller
                 $data->remark = $request->remark;
                 $data->transaction_status = $request->transaction_status;
                 $data->transaction_type = $request->transaction_type;
+                $data->paid = $request->filled('paid');
                 $data = $data->save() ;
                 // $data->update($request->all()); //need $fillabe on model
                 session()->flash('message', __('text.successfully_updated'));
@@ -124,5 +126,15 @@ class TransactionController extends Controller
             session()->flash('alert-class','alert-success');
         }
         return redirect('/'.$this->page);
+    }
+    public function paid(Transaction $transaction)
+    {
+        // if (Gate::allows('MainGate', $transaction)) {
+        //     $transaction->delete();
+        //     session()->flash('message', __('text.successfully_deleted'));
+        //     session()->flash('alert-class','alert-success');
+        // }
+        // return redirect('/'.$this->page);
+        return 1;
     }
 }

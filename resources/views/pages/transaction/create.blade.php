@@ -158,7 +158,16 @@
                                 @error('transaction_status')
                                     <b class="text-danger">{{ $message }}</b>
                                 @enderror
-                            </div>        
+                            </div>      
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="paid" id="paid" {{ old('paid') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="paid">
+                                        {{ __('text.paid') }}
+                                    </label>
+                                </div>
+                            </div>
                         </div>                        
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">@lang('text.save')</button>

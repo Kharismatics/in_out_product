@@ -23,11 +23,12 @@ return [
     'empty' => 'Kosong',
     'from' => 'Dari',
     'in' => 'Masuk',
-    'liability' => 'Utang',
+    'liability' => 'Piutang',
     'name' => 'Nama',
     'monthly' => 'Bulanan',
     'optional' => 'Opsional',
     'out' => 'Keluar',
+    'paid' => 'Lunas',
     'people' => 'Orang',
     'phone' => 'Telepon',
     'price' => 'Harga',
@@ -58,5 +59,6 @@ return [
     'transaction_type' => 'Tipe Transaksi',
     'type' => 'Tipe',
     'unique_code' => 'Kode Unik',
+    'unpaid' => 'Belum Lunas',
     'welcome' => 'Selamat datang di aplikasi kami'
 ];
