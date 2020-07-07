@@ -30,15 +30,16 @@ Route::get('/lang/{lang}', function ($lang) {
 })->middleware('auth');
 
 Auth::routes();
+Route::get('password/setting', 'HomeController@showChangeForm')->name('setting')->middleware('auth','localization');
+Route::post('password/change', 'HomeController@change')->name('change')->middleware('auth','localization');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth','localization');
 Route::resources([
     'peoples' => 'PeopleController',
     'category' => 'CategoryController',
     'products' => 'ProductController',
     'transactions' => 'TransactionController',
 ]);
-Route::get('/sales', 'ReportController@sales')->name('sales');
+Route::match(['get', 'post'],'/sales', 'ReportController@sales')->name('sales');
 Route::get('/stock', 'ReportController@stock')->name('stock');
 Route::get('/debt_receivable', 'ReportController@debt_receivable')->name('debt_receivable');
-Route::get('/setting', 'HomeController@index')->name('setting');

@@ -71,7 +71,7 @@ class CategoryController extends Controller
         $data->name = $request->name;
         $data->description = $request->description;
         $data->save();
-        session()->flash('message','Data successfully added');
+        session()->flash('message', __('text.successfully_added'));
         session()->flash('alert-class','alert-success');
         return redirect('/'.$this->page);
     }
@@ -126,7 +126,7 @@ class CategoryController extends Controller
                 $data->name = $request->name;
                 $data->description = $request->description;
                 $data = $data->save();
-                session()->flash('message','Data successfully updated');
+                session()->flash('message', __('text.successfully_updated'));
                 session()->flash('alert-class','alert-success');
             } 
         }
@@ -143,7 +143,7 @@ class CategoryController extends Controller
     {
         if (Gate::allows('MainGate', $category)) {
             $category->delete();
-            session()->flash('message','Data successfully deleted');
+            session()->flash('message', __('text.successfully_deleted'));
             session()->flash('alert-class','alert-success');
         }
         return redirect('/'.$this->page);

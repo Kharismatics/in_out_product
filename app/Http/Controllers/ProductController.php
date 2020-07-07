@@ -47,7 +47,7 @@ class ProductController extends Controller
         $data->price = $request->price;
         $data->description = $request->description;
         $data->save();
-        session()->flash('message','Data successfully added');
+        session()->flash('message', __('text.successfully_added'));
         session()->flash('alert-class','alert-success');
         return redirect('/'.$this->page);
     }
@@ -86,7 +86,7 @@ class ProductController extends Controller
                 $data->description = $request->description;
                 $data = $data->save() ;
                 // $data->update($request->all()); //need $fillabe on model
-                session()->flash('message','Data successfully updated');
+                session()->flash('message', __('text.successfully_updated'));
                 session()->flash('alert-class','alert-success');
             } 
         }  
@@ -96,7 +96,7 @@ class ProductController extends Controller
     {
         if (Gate::allows('MainGate', $product)) {
             $product->delete();
-            session()->flash('message','Data successfully deleted');
+            session()->flash('message', __('text.successfully_deleted'));
             session()->flash('alert-class','alert-success');
         }
         return redirect('/'.$this->page);

@@ -43,7 +43,7 @@
                             <select class="form-control @error('transaction_id') is-invalid @enderror" id="transaction_id" name="transaction_id">
                                 <option value=""> -- @lang('text.select_one') (@lang('text.optional')) -- </option>
                                 @foreach($transactions as $transaction)
-                                <option value="{{$transaction->id}}" {{ ( old('transaction_id') == $transaction->id) ? 'selected':'' }}> {{ $transaction->unique_code }}</option>
+                                <option value="{{$transaction->id}}" {{ ( old('transaction_id') == $transaction->id) ? 'selected':'' }}> {{ ($transaction->product) ? $transaction->unique_code.' - '.'['.$transaction->product->unique_code.']'.$transaction->product->name : $transaction->unique_code }}</option>
                                 @endforeach
                             </select>
                                 @error('transaction_id')

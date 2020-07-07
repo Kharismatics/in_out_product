@@ -19,8 +19,18 @@ class ReportController extends Controller
         }
         $this->middleware('localization');
     }
-    public function sales()
+    public function sales(Request $request)
     {
+        $intervals = collect([
+            ['interval' => 'DAY', 'caption' => __('text.today')],
+            ['interval' => 'WEEK', 'caption' => __('text.this_week')],
+            ['interval' => 'MONTH', 'caption' => __('text.this_month')],
+            ['interval' => '', 'caption' => __('text.all')],
+        ]);
+        $interval = $request->input('interval');
+        if ($request->method()=='GET') {
+            $interval = 'DAY';
+        }
         $rows = DB::table('transactions')
         ->join('peoples', 'peoples.id', '=', 'transactions.people_id')
         ->leftjoin('products', 'products.id', '=', 'transactions.product_id')
@@ -30,23 +40,24 @@ class ReportController extends Controller
         })
         ->leftjoin('products AS products_out', 'products_out.id', '=', 'transactions_out.product_id')
         ->select(
+            'transactions.transaction_date',
             'transactions.unique_code',
             DB::raw('peoples.name as people'),
             DB::raw('if(transactions.transaction_type="in",products.name,products_out.name) as product'),
-            DB::raw('if(transactions.transaction_type="in",transactions.base_price,0) as purchase'),
-            DB::raw('if(transactions.transaction_type="in",0,transactions.price) as sales'),
-            'transactions.transaction_type',
+            DB::raw('if(transactions.transaction_type="in",transactions.base_price,transactions.price) as price'),
+            DB::raw('if(transactions.transaction_type="in",transactions.base_price*transactions.quantity,0) as purchase'),
+            DB::raw('if(transactions.transaction_type="in",0,transactions.price*transactions.quantity) as sales'),
+            DB::raw('if(transactions.transaction_type="in",0-(transactions.base_price*transactions.quantity),transactions.price*transactions.quantity) as total'),
+            'transactions.quantity',
             )
         ->where('transactions.created_by', Auth::user()->id)
         ->where('transactions.transaction_status', 3)
-        // ->where('transactions.transaction_date', DB::raw('curdate()'))
-        // ->orderBy('transactions.transaction_type', 'desc')
+        ->when($interval, function ($query, $interval) {
+                    return $query->where(DB::raw("$interval(transactions.transaction_date)"), '=',  DB::raw("$interval(CURRENT_DATE())"));
+                })
+        ->orderBy('transactions.transaction_date', 'desc')
         ->get();
-        return view('pages.report.sales',compact('rows'));
-        // foreach ($rows as $key => $value) {
-        //     echo json_encode($value);
-        //     echo '<br>';
-        // }
+        return view('pages.report.sales',compact('rows','interval','intervals'));
     }
     public function stock()
     {
