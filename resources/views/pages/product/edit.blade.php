@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">@lang('text.save')</button>
-                            <a href="{{ route('products.index') }}" class="btn btn-primary">@lang('text.save')</a>
+                            <a href="{{ route('products.index') }}" class="btn btn-primary">@lang('text.back')</a>
                         </div>
                     </form>
 

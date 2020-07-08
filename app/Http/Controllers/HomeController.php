@@ -13,12 +13,7 @@ class HomeController extends Controller
      */
     public function __construct(Request $request)
     {
-        // if ($request->has('api_token')) {
-        //     $this->middleware('auth:api');
-        // } else {
-        //     $this->middleware('auth');
-        // }
-        // $this->middleware('localization');
+        
     }
 
     /**
@@ -63,10 +58,14 @@ class HomeController extends Controller
             DB::raw('sum(transactions.price*transactions.quantity) as aggregate'),
             )
         ->where('transactions.transaction_type', 'out')
-        ->groupBy('transactions.transaction_date')
-        ->get();
+        ->where('transactions.created_by', auth()->user()->id)
+        ->where('transactions.transaction_status', 3)
+        ->where('transactions.paid', 1)
+        ->groupBy('transactions.transaction_date');
 
-        return $this->Chart_js($rows);
+        if ($rows->count()) {
+            return $this->Chart_js($rows->get());
+        }
     }
     public function purchase_chart(Request $request)
     {
@@ -76,10 +75,14 @@ class HomeController extends Controller
             DB::raw('sum(transactions.base_price*transactions.quantity) as aggregate'),
             )
         ->where('transactions.transaction_type', 'in')
-        ->groupBy('transactions.transaction_date')
-        ->get();
-
-        return $this->Chart_js($rows);
+        ->where('transactions.created_by', auth()->user()->id)
+        ->where('transactions.transaction_status', 3)
+        ->where('transactions.paid', 1)
+        ->groupBy('transactions.transaction_date');
+        
+        if ($rows->count()) {
+            return $this->Chart_js($rows->get());
+        }
     }
 
     protected function Chart_js($data)

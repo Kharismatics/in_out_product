@@ -165,11 +165,13 @@
             _token: '{{ csrf_token() }}',
         },
         success: function (response) {
-            var json = JSON.parse(response);
-            
-            PurchaseChart.data.labels = json.data.labels;    
-            PurchaseChart.data.datasets[0].data = json.data.datasets[0].data;    
-            PurchaseChart.update(); 
+            if (response) {
+                var json = JSON.parse(response);
+                
+                PurchaseChart.data.labels = json.data.labels;    
+                PurchaseChart.data.datasets[0].data = json.data.datasets[0].data;    
+                PurchaseChart.update(); 
+            }
         }
     });
     var ctxSales = document.getElementById('SalesChart').getContext('2d');
@@ -219,11 +221,13 @@
             _token: '{{ csrf_token() }}',
         },
         success: function (response) {
-            var json = JSON.parse(response);
-            
-            SalesChart.data.labels = json.data.labels;    
-            SalesChart.data.datasets[0].data = json.data.datasets[0].data;    
-            SalesChart.update(); 
+            if (response) {
+                var json = JSON.parse(response);
+                
+                SalesChart.data.labels = json.data.labels;    
+                SalesChart.data.datasets[0].data = json.data.datasets[0].data;    
+                SalesChart.update(); 
+            }
         }
     });
 </script>

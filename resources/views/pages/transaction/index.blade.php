@@ -24,9 +24,9 @@
                                 <th>@lang('text.base_price')</th>
                                 <th>@lang('text.price')</th>
                                 <th>@lang('text.quantity')</th>
-                                <th>@lang('text.discount')</th>
+                                {{-- <th>@lang('text.discount')</th>
                                 <th>Cost</th>
-                                <th>Charge</th>
+                                <th>Charge</th> --}}
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
                                 <th class="text-center" style="width:200">@lang('text.action')</th>
@@ -38,15 +38,15 @@
                                         <td>{{($row->transaction_type == 'in') ? __('text.purchase') : __('text.sales') }}</td>
                                         <td class="{{ ($row->transaction_type == 'in') ? 'text-danger' : 'text-success' }}">{{$row->unique_code}}</td>
                                         <td>{{$row->transaction_date}}</td>
-                                        <td>{{$row->people->name}}</td>
+                                        <td>@if($row->people) {{ $row->people->name }} @endif</td>
                                         <td>{{ ( $row->product ) ? $row->product->name:'' }}</td>
                                         <td>{{ ( $row->transaction ) ? $row->transaction->unique_code:'' }}</td>
                                         <td>{{$row->base_price}}</td>
                                         <td>{{$row->price}}</td>
                                         <td>{{$row->quantity}}</td>
-                                        <td>{{$row->discount}}</td>
+                                        {{-- <td>{{$row->discount}}</td>
                                         <td>{{$row->cost}}</td>
-                                        <td>{{$row->charge}}</td>
+                                        <td>{{$row->charge}}</td> --}}
                                         <td>{{$row->remark}}</td>
                                         <td>@switch($row->transaction_status) @case(1) Pending @break @case(2) Progress @break @case(3) Complete @break @endswitch<br>@switch($row->paid) @case(0) @lang('text.unpaid') @break @case(1) @lang('text.paid') @break @endswitch</td>
                                         <td class="text-center form-inline">
@@ -71,9 +71,9 @@
                                 <th>@lang('text.base_price')</th>
                                 <th>@lang('text.price')</th>
                                 <th>@lang('text.quantity')</th>
-                                <th>@lang('text.discount')</th>
+                                {{-- <th>@lang('text.discount')</th>
                                 <th>Cost</th>
-                                <th>Charge</th>
+                                <th>Charge</th> --}}
                                 <th>@lang('text.remark')</th>
                                 <th>Status</th>
                                 <th class="text-center" style="width:200">@lang('text.action')</th>

@@ -70,7 +70,7 @@ var table = $('.table').DataTable({
                 return (intVal(a) + intVal(b));
             }, 0);
 
-        text_class = (total > 0) ? 'text-success' : 'text-danger' ;
+        text_class = (total >= 0) ? 'text-success' : 'text-danger' ;
 
         $(api.column(3).footer()).html(
             '<h5><b class="'+text_class+'">'+ total +'</b></h5>'

@@ -29,7 +29,7 @@
                                         <td>{{ $index +1 }}</td>
                                         <td>{{$row->unique_code}}</td>
                                         <td>{{$row->name}}</td>
-                                        <td>{{$row->category->name}}</td>
+                                        <td>@if($row->category) {{$row->category->name}} @endif </td>
                                         <td>{{$row->base_price}}</td>
                                         <td>{{$row->price}}</td>
                                         <td>{{$row->description}}</td>

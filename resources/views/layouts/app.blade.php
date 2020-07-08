@@ -56,6 +56,9 @@
                     @endif
                 </a>
                 @if (Auth::check())
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    <i class="fas fa-th"></i>
+                </a>
                 <div class="navbar-brand">
                     <select class="" id="SelectLang">
                         <option value="en" {{ ( App::getLocale() == 'en') ? 'selected':'' }}>EN</option>
@@ -220,7 +223,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    document.getElementsByClassName('delete-form').submit();
+                    $('.delete-form').submit()
                 }
             });
         });
