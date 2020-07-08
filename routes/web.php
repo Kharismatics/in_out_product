@@ -42,5 +42,7 @@ Route::resources([
 ]);
 Route::match(['get', 'post'],'/sales', 'ReportController@sales')->name('sales');
 Route::match(['get', 'post'],'/debt', 'ReportController@debt')->name('debt');
+Route::post('/sales_chart', 'HomeController@sales_chart')->name('sales_chart');
+Route::post('/purchase_chart', 'HomeController@purchase_chart')->name('purchase_chart');
 Route::get('/stock', 'ReportController@stock')->name('stock');
 Route::get('/debt_receivable', 'ReportController@debt_receivable')->name('debt_receivable');

@@ -43,6 +43,7 @@ return [
     'save' => 'Simpan',
     'select' => 'Pilih',
     'select_one' => 'Pilih Salah Satu',
+    'statistic' => 'Statistik',
     'stock' => 'Stok',
     'successfully_added' => 'Data Berhasil Ditambahkan',
     'successfully_deleted' => 'Data Berhasil Dihapus',

@@ -108,9 +108,9 @@
                                 <a class="dropdown-item" href="{{ url('/stock') }}">
                                     @lang('text.stock')
                                 </a>
-                                {{-- <a class="dropdown-item" href="{{ url('/debt_receivable') }}">
-                                    @lang('text.debt') & @lang('text.receivable') 
-                                </a> --}}
+                                <a class="dropdown-item" href="{{ url('/debt') }}">
+                                    @lang('text.debt')
+                                </a>
                             </div>
                         </li>
                         @endif

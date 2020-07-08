@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">                
                 <div class="card-body">
-                    <h5 class="card-title"> @lang('text.debt') @lang('text.liability') </h5>
+                    <h5 class="card-title"> @lang('text.debt') </h5>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>

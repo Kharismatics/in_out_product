@@ -43,6 +43,7 @@ return [
     'save' => 'Save',
     'select' => 'Select',
     'select_one' => 'Select One',
+    'statistic' => 'Statistic',
     'stock' => 'Stock',
     'successfully_added' => 'Data Successfully Added',
     'successfully_deleted' => 'Data Successfully Deleted',

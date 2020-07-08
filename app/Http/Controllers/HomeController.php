@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -54,4 +54,47 @@ class HomeController extends Controller
     {
         return [];
     }
+
+    public function sales_chart(Request $request)
+    {
+        $rows = DB::table('transactions')
+        ->select(
+            'transactions.transaction_date as name',
+            DB::raw('sum(transactions.price*transactions.quantity) as aggregate'),
+            )
+        ->where('transactions.transaction_type', 'out')
+        ->groupBy('transactions.transaction_date')
+        ->get();
+
+        return $this->Chart_js($rows);
+    }
+    public function purchase_chart(Request $request)
+    {
+        $rows = DB::table('transactions')
+        ->select(
+            'transactions.transaction_date as name',
+            DB::raw('sum(transactions.base_price*transactions.quantity) as aggregate'),
+            )
+        ->where('transactions.transaction_type', 'in')
+        ->groupBy('transactions.transaction_date')
+        ->get();
+
+        return $this->Chart_js($rows);
+    }
+
+    protected function Chart_js($data)
+    {
+        foreach ($data as $key => $value) {
+            $label[] = $value->name;
+            $aggregate[] = $value->aggregate;
+        }
+        return json_encode(array(
+            'data'=>array(
+                "labels"=>$label,
+                "datasets"=>array(
+                    array("data"=>$aggregate)
+                    )
+                ),
+            ),JSON_NUMERIC_CHECK);   
+    }  
 }
