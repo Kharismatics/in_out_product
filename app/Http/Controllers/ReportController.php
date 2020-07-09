@@ -74,7 +74,7 @@ class ReportController extends Controller
         ->get();
         return view('pages.report.debt',compact('rows'));
     }
-    public function stock()
+    public function stocks()
     {
         $rows = DB::table('transactions')
         ->join('peoples', 'peoples.id', '=', 'transactions.people_id')
@@ -93,6 +93,31 @@ class ReportController extends Controller
         ->where('transactions.transaction_status', 3)
         ->groupBy('product_id','product')
         // ->having('product', '<>', NULL)
+        ->get();
+        $rows = Arr::where(array_values($rows->toArray()), function ($value, $key) {
+            return $value->product_id != null;
+        });
+        return view('pages.report.stocks',compact('rows'));
+    }
+    public function stock($product)
+    {
+        $rows = DB::table('transactions')
+        ->join('peoples', 'peoples.id', '=', 'transactions.people_id')
+        ->leftjoin('products', 'products.id', '=', 'transactions.product_id')
+        ->leftjoin('transactions AS transactions_out', function ($join) {
+            $join->on('transactions_out.id', '=', 'transactions.transaction_id')
+                ->where('transactions_out.transaction_type', '=', 'in');
+        })
+        ->leftjoin('products AS products_out', 'products_out.id', '=', 'transactions_out.product_id')
+        ->select(
+            'transactions.transaction_date',
+            DB::raw('if(transactions.transaction_type="in",products.id,products_out.id) as product_id'),
+            DB::raw('if(transactions.transaction_type="in",0+transactions.quantity,0-transactions.quantity) as stock'),
+            )
+        ->where('transactions.created_by', Auth::user()->id)
+        ->where('transactions.transaction_status', 3)
+        ->orderBy('transactions.transaction_date', 'asc')
+        ->having('product_id', $product)
         ->get();
         $rows = Arr::where(array_values($rows->toArray()), function ($value, $key) {
             return $value->product_id != null;

@@ -7,14 +7,15 @@
         <div class="col-md-12">
             <div class="card">                
                 <div class="card-body">
-                    <h5 class="card-title">@lang('text.stock') Detail</h5>
+                    <h5 class="card-title">@lang('text.stock')</h5>
                     {{-- <hr> --}}
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <th>#</th>
-                                <th>@lang('text.date')</th>
+                                <th>@lang('text.product')</th>
                                 <th>@lang('text.stock')</th>
+                                <th class="text-center">@lang('text.action')</th>
                             </thead>
                             <tbody>
                                 {{-- @if (count($rows) == 0)
@@ -24,19 +25,15 @@
                                 @endif --}}
                                 @foreach ($rows as $index => $row)
                                     <tr>
-                                        <td>{{ $index+1 }}</td>
-                                        <td>{{$row->transaction_date}}</td>
+                                        <td>{{ $index }}</td>
+                                        <td>{{$row->product}}</td>
                                         <td>{{$row->stock}}</td>
+                                        <td class="text-center">
+                                            <a href='{{ route('stock', $row->product_id) }}' class='edit-data btn btn-info' data-toggle='tooltip' title='Info'><i class="fas fa-info-circle"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td><h5><b>Total</b></h5></td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -53,28 +50,6 @@ var table = $('.table').DataTable({
         { extend: "pdf", text: '<i class="fas fa-file-pdf"></i>', className: 'btn btn-danger',titleAttr: 'Export to pdf'},
         { extend: "print", text: '<i class="fas fa-print"></i>', className: 'btn btn-secondary',titleAttr: 'Print'}
     ],
-    footerCallback: function (row, data, start, end, display) {
-        var api = this.api(),
-            data;
-        // Remove the formatting to get integer data for summation
-        var intVal = function (i) {
-            return typeof i === 'string' ?
-                i.replace(/[\$,]/g, '') * 1 :
-                typeof i === 'number' ?
-                i : 0;
-        };
-        // get total of column
-        total = api
-            .column(2)
-            .data()
-            .reduce(function (a, b) {
-                return (intVal(a) + intVal(b));
-            }, 0);
-
-        $(api.column(2).footer()).html(
-            '<h5><b>'+ total +'</b></h5>'
-        );
-    }
 })
 </script>
 @endsection
