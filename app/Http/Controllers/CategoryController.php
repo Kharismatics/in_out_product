@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 
-use Auth;
 use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
@@ -40,7 +39,7 @@ class CategoryController extends Controller
         //     }
         // }
         // /* ========================== */
-        $rows = Category::where('created_by',Auth::user()->id)->get();
+        $rows = Category::where('created_by',auth()->user()->id)->get();
         if ($request->has('api_token')) {
             return $rows;
         } else {

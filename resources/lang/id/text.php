@@ -9,6 +9,8 @@ return [
     'application' => 'Aplikasi',
     'back' => 'Kembali',
     'base_price' => 'Harga Dasar',
+    'best_customer' => 'Pelanggan Terbaik',
+    'best_product' => 'Produk Terbaik',
     'category' => 'Kategori',
     'change_password' => 'Ubah Password',
     'code' => 'Kode',

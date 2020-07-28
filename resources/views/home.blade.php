@@ -24,17 +24,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="row pb-3">
-        <div class="col-md-12">
-            <div class="card">                
-                <div class="card-body">
-                    <h5 class="card-title">Chart</h5>
-                    <hr>
-                    <canvas id="myChart" height="158"></canvas>                  
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="row">
         <div class="col-md-6">
             <div class="card">                
@@ -55,69 +44,30 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">                
+                <div class="card-body">
+                    <h5 class="card-title">@lang('text.best_product')</h5>
+                    <hr>
+                    <canvas id="BestProductChart" height="150"></canvas>                  
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">                
+                <div class="card-body">
+                    <h5 class="card-title">@lang('text.best_customer')</h5>
+                    <hr>
+                    <canvas id="BestCustomerChart" height="150"></canvas>                  
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
 <script>    
-
-    // var ctx = document.getElementById("myChart").getContext('2d');
-    // var myChart = new Chart(ctx, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ["January", "February", "March", "April", "May", "June", "July", "August"],
-    //         datasets: [{
-    //         label: 'Sales',
-    //         data: [3200, 1800, 4305, 3022, 6310, 5120, 5880, 6154],
-    //         borderWidth: 2,
-    //         backgroundColor: 'rgba(63,82,227,.8)',
-    //         borderWidth: 0,
-    //         borderColor: 'transparent',
-    //         pointBorderWidth: 0,
-    //         pointRadius: 3.5,
-    //         pointBackgroundColor: 'transparent',
-    //         pointHoverBackgroundColor: 'rgba(63,82,227,.8)',
-    //         },
-    //         {
-    //         label: 'Budget',
-    //         data: [2207, 3403, 2200, 5025, 2302, 4208, 3880, 4880],
-    //         borderWidth: 2,
-    //         backgroundColor: 'rgba(254,86,83,.7)',
-    //         borderWidth: 0,
-    //         borderColor: 'transparent',
-    //         pointBorderWidth: 0 ,
-    //         pointRadius: 3.5,
-    //         pointBackgroundColor: 'transparent',
-    //         pointHoverBackgroundColor: 'rgba(254,86,83,.8)',
-    //         }]
-    //     },
-    //     options: {
-    //         legend: {
-    //         display: false
-    //         },
-    //         scales: {
-    //         yAxes: [{
-    //             gridLines: {
-    //             // display: false,
-    //             drawBorder: false,
-    //             color: '#f2f2f2',
-    //             },
-    //             ticks: {
-    //             beginAtZero: true,
-    //             stepSize: 1500,
-    //             callback: function(value, index, values) {
-    //                 return '$' + value;
-    //             }
-    //             }
-    //         }],
-    //         xAxes: [{
-    //             gridLines: {
-    //             display: false,
-    //             tickMarkLength: 15,
-    //             }
-    //         }]
-    //         },
-    //     }
-    // });
-
     var ctxPurchase = document.getElementById('PurchaseChart').getContext('2d');
     var PurchaseChart = new Chart(ctxPurchase, {
         type: 'line',
@@ -227,6 +177,76 @@
                 SalesChart.data.labels = json.data.labels;    
                 SalesChart.data.datasets[0].data = json.data.datasets[0].data;    
                 SalesChart.update(); 
+            }
+        }
+    });
+    var ctxBestProduct = document.getElementById('BestProductChart').getContext('2d');
+    var BestProductChart = new Chart(ctxBestProduct, {
+        type: 'pie',
+        data: {
+            labels: [],
+            datasets: [{
+            label: '{{__("text.statistic")}}',
+            data: [],
+            }]
+        },
+        options: {
+            plugins: {
+                colorschemes: {
+                    scheme: 'office.Parallax6'
+                }
+            }
+        }
+    });    
+    $.ajax({
+        type: "POST",
+        url: "{{ route('best_product_chart') }}",
+        data: {
+            _token: '{{ csrf_token() }}',
+        },
+        success: function (response) {
+            if (response) {
+                var json = JSON.parse(response);                
+                BestProductChart.data.labels = json.data.labels;  
+                for (let index = 0; index < json.data.datasets.length; index++) {
+                    BestProductChart.data.datasets[index].data = json.data.datasets[index].data;   
+                } 
+                BestProductChart.update(); 
+            }
+        }
+    });
+    var ctxBestCustomer = document.getElementById('BestCustomerChart').getContext('2d');
+    var BestCustomerChart = new Chart(ctxBestCustomer, {
+        type: 'pie',
+        data: {
+            labels: [],
+            datasets: [{
+            label: '{{__("text.statistic")}}',
+            data: [],
+            }]
+        },
+        options: {
+            plugins: {
+                colorschemes: {
+                    scheme: 'brewer.SetTwo8'
+                }
+            }
+        }
+    });    
+    $.ajax({
+        type: "POST",
+        url: "{{ route('best_customer_chart') }}",
+        data: {
+            _token: '{{ csrf_token() }}',
+        },
+        success: function (response) {
+            if (response) {
+                var json = JSON.parse(response);                
+                BestCustomerChart.data.labels = json.data.labels;  
+                for (let index = 0; index < json.data.datasets.length; index++) {
+                    BestCustomerChart.data.datasets[index].data = json.data.datasets[index].data;   
+                } 
+                BestCustomerChart.update(); 
             }
         }
     });

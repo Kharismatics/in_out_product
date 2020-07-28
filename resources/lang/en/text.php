@@ -9,6 +9,8 @@ return [
     'application' => 'Application',
     'back' => 'Back',
     'base_price' => 'Base Price',
+    'best_customer' => 'Best Customer',
+    'best_product' => 'Best Product',
     'category' => 'Category',
     'change_password' => 'Change Password',
     'code' => 'Code',

@@ -44,6 +44,8 @@ Route::match(['get', 'post'],'/sales', 'ReportController@sales')->name('sales');
 Route::match(['get', 'post'],'/debt', 'ReportController@debt')->name('debt');
 Route::post('/sales_chart', 'HomeController@sales_chart')->name('sales_chart');
 Route::post('/purchase_chart', 'HomeController@purchase_chart')->name('purchase_chart');
+Route::post('/best_product_chart', 'HomeController@best_product_chart')->name('best_product_chart');
+Route::post('/best_customer_chart', 'HomeController@best_customer_chart')->name('best_customer_chart');
 Route::get('/stocks', 'ReportController@stocks')->name('stocks');
 Route::get('/stock/{product}', 'ReportController@stock')->name('stock');
 Route::get('/debt_receivable', 'ReportController@debt_receivable')->name('debt_receivable');
