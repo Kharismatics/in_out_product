@@ -84,6 +84,50 @@ class HomeController extends Controller
             return $this->Chart_js($rows->get());
         }
     }
+    public function best_product_chart(Request $request)
+    {
+        $rows = DB::table('transactions')
+        ->join('peoples', 'peoples.id', '=', 'transactions.people_id')
+        ->leftjoin('products', 'products.id', '=', 'transactions.product_id')
+        ->leftjoin('transactions AS transactions_out', function ($join) {
+            $join->on('transactions_out.id', '=', 'transactions.transaction_id')
+                ->where('transactions_out.transaction_type', '=', 'in');
+        })
+        ->leftjoin('products AS products_out', 'products_out.id', '=', 'transactions_out.product_id')
+        ->select(
+            'products_out.name',
+            DB::raw('count(products_out.id) aggregate'),
+            )
+        ->where('transactions.created_by', auth()->user()->id)
+        ->where('transactions.transaction_status', 3)
+        ->where('transactions.transaction_type', 'out')
+        ->whereNotNull('products_out.id')
+        ->groupBy('products_out.id')
+        ->limit(10);;
+
+        if ($rows->count()) {
+            return $this->Chart_js($rows->get());
+        }
+    }
+    public function best_customer_chart(Request $request)
+    {
+        $rows = DB::table('transactions')
+        ->join('peoples', 'peoples.id', '=', 'transactions.people_id')
+        ->select(
+            'peoples.name',
+            DB::raw('count(peoples.id) aggregate'),
+            )
+        ->where('transactions.created_by', auth()->user()->id)
+        ->where('transactions.transaction_status', 3)
+        ->where('transactions.transaction_type', 'out')
+        ->whereNotNull('transactions.people_id')
+        ->groupBy('transactions.people_id')
+        ->limit(10);;
+
+        if ($rows->count()) {
+            return $this->Chart_js($rows->get());
+        }
+    }
 
     protected function Chart_js($data)
     {
