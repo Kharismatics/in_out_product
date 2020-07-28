@@ -6,7 +6,6 @@ use App\Product;
 use Illuminate\Http\Request;
 use App\Category;
 
-use Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
@@ -28,12 +27,12 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $rows = Product::with('category')->where('created_by',Auth::user()->id)->get();
+        $rows = Product::with('category')->where('created_by',auth()->user()->id)->get();
         return view('pages.product.index',compact('rows'));
     }
     public function create()
     {
-        $categories = Category::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
+        $categories = Category::where('created_by',auth()->user()->id)->orderBy('name', 'DESC')->get();
         return view('pages.product.create',compact('categories'));
     }
     public function store(Request $request)
@@ -66,7 +65,7 @@ class ProductController extends Controller
     {
         if (Gate::allows('MainGate', $product)) {
             $row=$product;
-            $categories = Category::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
+            $categories = Category::where('created_by',auth()->user()->id)->orderBy('name', 'DESC')->get();
             return view('pages.product.edit',compact('row','categories'));
         } else {
             return redirect('/'.$this->page);

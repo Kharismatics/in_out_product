@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\People;
 use Illuminate\Http\Request;
 
-use Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PeopleController extends Controller
@@ -29,7 +28,7 @@ class PeopleController extends Controller
     }
     public function index()
     {
-        $rows = People::where('created_by',Auth::user()->id)->get();
+        $rows = People::where('created_by',auth()->user()->id)->get();
         return view('pages.people.index',compact('rows'));
     }
     public function create()

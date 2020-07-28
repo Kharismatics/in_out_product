@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\People;
 use App\Product;
 
-use Auth;
 use Illuminate\Support\Facades\Gate;
 
 use Carbon\Carbon;
@@ -34,14 +33,14 @@ class TransactionController extends Controller
     }
     public function index()
     {
-        $rows = Transaction::with('product','people','transaction')->where('created_by',Auth::user()->id)->get();
+        $rows = Transaction::with('product','people','transaction')->where('created_by',auth()->user()->id)->get();
         return view('pages.transaction.index',compact('rows'));
     }
     public function create()
     {
-        $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-        $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-        $transactions = Transaction::with('product','people')->where('created_by',Auth::user()->id)->where('transaction_type','in')->orderBy('transaction_date', 'DESC')->get();
+        $peoples = People::where('created_by',auth()->user()->id)->orderBy('name', 'DESC')->get();
+        $products = Product::where('created_by',auth()->user()->id)->orderBy('name', 'DESC')->get();
+        $transactions = Transaction::with('product','people')->where('created_by',auth()->user()->id)->where('transaction_type','in')->orderBy('transaction_date', 'DESC')->get();
         return view('pages.transaction.create',compact('peoples','products','transactions'));
     }
     public function store(Request $request)
@@ -82,9 +81,9 @@ class TransactionController extends Controller
     {
         if (Gate::allows('MainGate', $transaction)) {
             $row=$transaction;
-            $peoples = People::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-            $products = Product::where('created_by',Auth::user()->id)->orderBy('name', 'DESC')->get();
-            $transactions = Transaction::where('created_by',Auth::user()->id)->where('transaction_type','in')->orderBy('id', 'DESC')->get();
+            $peoples = People::where('created_by',auth()->user()->id)->orderBy('name', 'DESC')->get();
+            $products = Product::where('created_by',auth()->user()->id)->orderBy('name', 'DESC')->get();
+            $transactions = Transaction::where('created_by',auth()->user()->id)->where('transaction_type','in')->orderBy('id', 'DESC')->get();
             return view('pages.transaction.edit',compact('row','peoples','products','transactions'));
         } else {
             return redirect('/'.$this->page);
