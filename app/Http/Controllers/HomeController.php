@@ -57,6 +57,7 @@ class HomeController extends Controller
             'transactions.transaction_date as name',
             DB::raw('sum(transactions.price*transactions.quantity) as aggregate'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.transaction_type', 'out')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
@@ -74,6 +75,7 @@ class HomeController extends Controller
             'transactions.transaction_date as name',
             DB::raw('sum(transactions.base_price*transactions.quantity) as aggregate'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.transaction_type', 'in')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
@@ -98,6 +100,7 @@ class HomeController extends Controller
             'products_out.name',
             DB::raw('count(products_out.id) aggregate'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
         ->where('transactions.transaction_type', 'out')
@@ -117,6 +120,7 @@ class HomeController extends Controller
             'peoples.name',
             DB::raw('count(peoples.id) aggregate'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
         ->where('transactions.transaction_type', 'out')

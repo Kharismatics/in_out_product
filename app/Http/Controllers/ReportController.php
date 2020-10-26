@@ -49,6 +49,7 @@ class ReportController extends Controller
             DB::raw('if(transactions.transaction_type="in",0-(transactions.base_price*transactions.quantity),transactions.price*transactions.quantity) as total'),
             'transactions.quantity',
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
         ->when($interval, function ($query, $interval) {
@@ -67,6 +68,7 @@ class ReportController extends Controller
             DB::raw('if(transactions.transaction_type="in","'.__("text.debt").'","'.__("text.liability").'") as transaction_type'),
             DB::raw('sum(if(transactions.transaction_type="in",0-(transactions.base_price*transactions.quantity),transactions.price*transactions.quantity)) as total'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.paid', 0)
         ->groupBy('people','transaction_type')
@@ -88,6 +90,7 @@ class ReportController extends Controller
             DB::raw('if(transactions.transaction_type="in",concat("[",products.unique_code,"] ",products.name),concat("[",products_out.unique_code,"] ",products_out.name)) as product'),
             DB::raw('sum(if(transactions.transaction_type="in",transactions.quantity,0)-if(transactions.transaction_type="out",transactions.quantity,0)) as stock'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
         ->groupBy('product_id','product')
@@ -113,6 +116,7 @@ class ReportController extends Controller
             DB::raw('if(transactions.transaction_type="in",products.id,products_out.id) as product_id'),
             DB::raw('if(transactions.transaction_type="in",0+transactions.quantity,0-transactions.quantity) as stock'),
             )
+        ->whereNull('transactions.deleted_at')
         ->where('transactions.created_by', auth()->user()->id)
         ->where('transactions.transaction_status', 3)
         ->orderBy('transactions.transaction_date', 'asc')
